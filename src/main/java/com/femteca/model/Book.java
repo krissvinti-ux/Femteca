@@ -7,9 +7,9 @@ public class Book {
     private String author;
     private String description;
     private String code;
-    private String genre;
+    private Genre genre;
 
-    public Book (int id, String title, String author, String description, String code, String genre ) {
+    public Book (int id, String title, String author, String description, String code, Genre genre ) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -51,12 +51,6 @@ public class Book {
     }
     public String getCode() {
         return code;
-    }
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-    public String getGenre() {
-        return genre;
     }
     
 
