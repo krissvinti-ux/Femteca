@@ -1,5 +1,5 @@
 package com.femteca.repository;
 
-public interface BookRepository {
+public interface GenreRepository {
 
 }
