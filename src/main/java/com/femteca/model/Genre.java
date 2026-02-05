@@ -5,23 +5,23 @@ public class Genre {
     private int id;
     private String name;
 
-    public Genre(String genre) {
-        this.genre = genre;
+    public Genre(String name) {
+        this.name = name;
     }
 
     public Genre() {}
 
-    public int getGenreId() {
-        return genreId;
+    public int getNameId() {
+        return id;
     }
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
+    public void setNameId(int id) {
+        this.id = id;
     }
-    public String getGenre() {
-        return genre;
+    public String getName() {
+        return name;
     }
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setName(String name) {
+        this.name = name;
     }
 
 

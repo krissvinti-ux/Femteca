@@ -1,5 +1,12 @@
+
 package com.femteca.repository;
 
-public interface BookRepository {
+import com.femteca.model.Book;
 
+public interface BookRepository {
+    
+    void updateBook (Book book) ;
+            
 }
+
+

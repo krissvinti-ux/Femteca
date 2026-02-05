@@ -14,7 +14,7 @@ public class GenreRepositoryImpl implements GenreRepository {
 
         String sql = "UPDATE Genre SET Genre = '?' WHERE Genre = '?'";
         try (Connection connection = DBManager.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, genre.getGenre());
+            st.setString(1, genre.getName());
             st.executeUpdate();
             
         } catch (SQLException e) {
