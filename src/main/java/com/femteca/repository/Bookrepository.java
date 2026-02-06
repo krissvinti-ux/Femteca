@@ -8,6 +8,4 @@ public interface BookRepository {
 
     Book readBookById(int id);
 
-    void updateBook(Book book);
-
 }
