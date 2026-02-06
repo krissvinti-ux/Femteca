@@ -70,4 +70,12 @@ public class BookView {
     }
 
 
+        public void deleteBookView(Scanner scanner) {
+        System.out.print("Introduce el ID del libro a borrar: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        bookController.deleteBook(id);
+        System.out.println("Libro eliminado correctamente.");
+    }
 }

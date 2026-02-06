@@ -19,10 +19,12 @@ public class App
             bookView.createBook(scanner);
             bookView.readBookById(scanner);
             bookView.updateBook(scanner);
+            bookView.deleteBookView(scanner); 
         } catch (Exception e) {
             System.err.println(e.getMessage());
         } finally {
             scanner.close();
         }
         }
-            }
+
+}
