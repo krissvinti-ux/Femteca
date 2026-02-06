@@ -4,17 +4,13 @@ public class Book {
 
     private int id;
     private String title;
-    private String author;
     private String description;
     private String code;
-    private String genre;
 
-    public Book (String title, String author, String description, String code, String genre ) {
+    public Book (String title, String description, String code ) {
         this.title = title;
-        this.author = author;
         this.description = description;
         this.code = code;
-        this.genre = genre;
     }
 
     public Book () {
@@ -26,12 +22,6 @@ public class Book {
     }
     public String getTitle() {
         return title;
-    }
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-    public String getAuthor() {
-        return author;
     }
     public void setId(int id) {
         this.id = id;
@@ -51,12 +41,5 @@ public class Book {
     public String getCode() {
         return code;
     }
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-    public String getGenre() {
-        return genre;
-    }
-    
 
 }

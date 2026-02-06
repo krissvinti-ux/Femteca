@@ -1,13 +1,13 @@
 package com.femteca.controller;
 
 import com.femteca.model.Book;
-import com.femteca.repository.BookRepositor;
+import com.femteca.repository.BookRepository;
 
 public class BookController {
 
-  private final BookRepositor bookRepositor;
+  private final BookRepository bookRepositor;
 
-  public BookController(BookRepositor bookRepositor){
+  public BookController(BookRepository bookRepositor){
    this.bookRepositor = bookRepositor;
   }
 
