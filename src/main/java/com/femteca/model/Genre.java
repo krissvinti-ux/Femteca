@@ -3,7 +3,7 @@ package com.femteca.model;
 public class Genre {
 
     private int id;
-    private String name;
+    private String genre;
 
     public Genre(String genre) {
         this.genre = genre;
@@ -11,11 +11,11 @@ public class Genre {
 
     public Genre() {}
 
-    public int getGenreId() {
-        return genreId;
+    public int getId() {
+        return id;
     }
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
+    public void setId(int genreId) {
+        this.id = genreId;
     }
     public String getGenre() {
         return genre;
