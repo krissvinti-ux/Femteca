@@ -12,13 +12,13 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public void createBook(Book book) {
         
-        String sql = "INSERT INTO books (title, description, code) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO books (title, description, code) VALUES (?, ?, ?)";
 
         try (Connection connection = DBManager.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, book.getTitle());
             //st.setString(2, book.getAuthor());
-            st.setString(3, book.getDescription());
-            st.setString(4, book.getCode());
+            st.setString(2, book.getDescription());
+            st.setString(3, book.getCode());
             //st.setString(5, book.getGenre());
             st.executeUpdate();
         } catch (SQLException e) {
