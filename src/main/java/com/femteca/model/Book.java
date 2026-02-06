@@ -7,14 +7,12 @@ public class Book {
     private String description;
     private String code;
 
-    public Book (String title, String description, String code ) {
+    public Book (String title, String description, String code) {
         this.title = title;
         this.description = description;
         this.code = code;
     }
-
     public Book () {
-
     }
 
     public void setTitle(String title) {
@@ -29,12 +27,14 @@ public class Book {
     public int getId() {
         return id;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
     public String getDescription() {
         return description;
     }
+
     public void setCode(String code) {
         this.code = code;
     }

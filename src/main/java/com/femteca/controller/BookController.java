@@ -18,5 +18,10 @@ public class BookController {
     public Book readBookById(int id) {
         return bookRepository.readBookById(id);
     }
+
+        public void updateBook (Book book) {
+        bookRepository.updateBook(book);
 }
+        
+};
 
