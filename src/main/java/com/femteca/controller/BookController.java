@@ -5,14 +5,18 @@ import com.femteca.repository.BookRepository;
 
 public class BookController {
 
-  private final BookRepository bookRepositor;
+  private final BookRepository bookRepository;
 
-  public BookController(BookRepository bookRepositor){
-   this.bookRepositor = bookRepositor;
-  }
-
+  public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
   public void createBook(Book book){
-   bookRepositor.createBook(book);
+   bookRepository.createBook(book);
   }
 
+
+    public Book readBookById(int id) {
+        return bookRepository.readBookById(id);
+    }
 }
+

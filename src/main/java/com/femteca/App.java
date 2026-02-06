@@ -17,11 +17,13 @@ public class App
             BookController bookController = new BookController(repo);
             BookView bookView = new BookView(bookController);
             bookView.createBook(scanner);
+             bookView.readBookById(scanner);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         } finally {
             scanner.close();
         }
+           }
+              }
+                 
         
-    }
-}
