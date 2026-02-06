@@ -15,17 +15,17 @@ public class BookRepositoryImpl implements BookRepository{
         String sql = "SELECT id, title, description, code FROM books WHERE id = ?";
 
         try (Connection connection = DBManager.getConnection();
-                PreparedStatement pedido = connection.prepareStatement(sql)) {
+                PreparedStatement st = connection.prepareStatement(sql)) {
 
-            pedido.setInt(1, id);
+            st.setInt(1, id);
 
-            try (ResultSet respuesta = pedido.executeQuery()) {
-                if (respuesta.next()) {
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
                     Book book = new Book();
-                    book.setId(respuesta.getInt("id"));
-                    book.setTitle(respuesta.getString("title"));
-                    book.setDescription(respuesta.getString("description"));
-                    book.setCode(respuesta.getString("code"));
+                    book.setId(rs.getInt("id"));
+                    book.setTitle(rs.getString("title"));
+                    book.setDescription(rs.getString("description"));
+                    book.setCode(rs.getString("code"));
                     return book;
                 }
                 return null;
