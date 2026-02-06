@@ -12,7 +12,7 @@ public class BookRepositoryImpl implements BookRepositor {
     @Override
     public void createBook(Book book) {
         
-        String sql = "INSERT INTO Femteca (title, author, description, code, genre) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO books (title, author, description, code, genre) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = DBManager.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, book.getTitle());
