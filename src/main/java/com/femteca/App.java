@@ -4,7 +4,6 @@ package com.femteca;
 import java.util.Scanner;
 
 import com.femteca.controller.BookController;
-import com.femteca.model.Book;
 import com.femteca.repository.BookRepositoryImpl;
 import com.femteca.view.BookView;
 
