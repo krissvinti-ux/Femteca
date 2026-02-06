@@ -12,7 +12,7 @@ public class GenreRepositoryImpl implements GenreRepository {
     @Override
     public void updateGenre(Genre genre) {
 
-        String sql = "UPDATE genre" + " SET genre = ? " + " WHERE genre_id = ? ";
+        String sql = "UPDATE genres" + " SET genre = ? " + " WHERE genre_id = ? ";
         try (Connection connection = DBManager.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, genre.getGenre());
             st.setInt(2, genre.getId());
