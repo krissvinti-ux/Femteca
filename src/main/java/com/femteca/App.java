@@ -1,13 +1,18 @@
 package com.femteca;
 
-/**
- * Hello world!
- *
- */
+import com.femteca.repository.BookRepositoryImpl;
+import com.femteca.controller.BookController;
+import com.femteca.view.BookView;
+
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        BookRepositoryImpl repo = new BookRepositoryImpl();
+
+        BookController controller = new BookController(repo);
+        BookView view = new BookView(controller);
+
+        view.deleteBookView();  // Ejecuta solo borrar
     }
 }
