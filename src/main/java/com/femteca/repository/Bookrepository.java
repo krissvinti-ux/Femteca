@@ -1,5 +1,7 @@
 package com.femteca.repository;
 
-public interface BookRepository {
+import com.femteca.model.Book;
 
+public interface BookRepository {
+    Book readBookById(int id);
 }
