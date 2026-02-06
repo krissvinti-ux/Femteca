@@ -27,6 +27,7 @@ public class Book {
     public int getId() {
         return id;
     }
+    
 
     public void setDescription(String description) {
         this.description = description;
@@ -41,5 +42,6 @@ public class Book {
     public String getCode() {
         return code;
     }
+    
 
 }
