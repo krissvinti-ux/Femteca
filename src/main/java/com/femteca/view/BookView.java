@@ -25,17 +25,22 @@ public class BookView {
         String description = scan.nextLine();
         System.out.print("Ingresa el nuevo codigo(or press ENTER):  ");
         String code = scan.nextLine();
-        System.out.print("Ingresa el nuevo genero(or press ENTER):  ");
-        String genero = scan.nextLine();
 
         Book book = new Book(title, description, code, id);
         
         bookController.updateBook(book);
         System.out.println("libro actualizado correctamente");
 
+    }
+        
+    public void updateGenre(Scanner scan){
+        System.out.print("Ingresa el nuevo genero(or press ENTER):  ");
+        String genero = scan.nextLine();
+        
         Genre genre = new Genre (genero);
 
         bookController.updateGenre(genre);
         System.out.println("genero actualizado correctamente");
     }
+
 }

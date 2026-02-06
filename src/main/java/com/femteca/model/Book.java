@@ -7,15 +7,13 @@ public class Book {
     private String author;
     private String description;
     private String code;
-    private Genre genre;
 
-    public Book (int id, String title, String author, String description, String code, Genre genre ) {
+    public Book (int id, String title, String author, String description, String code) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.description = description;
         this.code = code;
-        this.genre = genre;
     }
 
     public Book () {
