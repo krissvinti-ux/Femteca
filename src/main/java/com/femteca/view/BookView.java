@@ -24,9 +24,9 @@ public class BookView {
         String description = scan.nextLine();
         System.out.print("Ingresa el nuevo codigo(or press ENTER):  ");
         String code = scan.nextLine();
-
-        Book book = new Book(title, description, code, id);
         
+        Book book = new Book(title, description, code);
+
         bookController.updateBook(book);
         System.out.println("libro actualizado correctamente");
     }
