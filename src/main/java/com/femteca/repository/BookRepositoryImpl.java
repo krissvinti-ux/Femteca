@@ -6,9 +6,16 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 import com.femteca.config.DBManager;
+import com.femteca.model.Author;
 import com.femteca.model.Book;
 
 public class BookRepositoryImpl implements BookRepository {
+
+    private final AuthorRepository authorRepository;
+
+    public BookRepositoryImpl(AuthorRepository authorRepository){
+        this.authorRepository = authorRepository;
+    }
 
     @Override
     public void createBook(Book book) {
@@ -31,7 +38,7 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public Book readBookById(int id) {
-        String sql = "SELECT id, title, description, code FROM books WHERE id = ?";
+        String sql = "SELECT id, title, description, code, author_id FROM books WHERE id = ?";
 
         try (Connection connection = DBManager.getConnection();
                 PreparedStatement st = connection.prepareStatement(sql)) {
@@ -41,10 +48,13 @@ public class BookRepositoryImpl implements BookRepository {
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
                     Book book = new Book();
+                    Author author = new Author();
                     book.setId(rs.getInt("id"));
                     book.setTitle(rs.getString("title"));
                     book.setDescription(rs.getString("description"));
                     book.setCode(rs.getString("code"));
+                    
+                    author.setId(rs.getInt("author_id"));
                     return book;
                 }
                 return null;
@@ -81,7 +91,7 @@ public class BookRepositoryImpl implements BookRepository {
         String sql = "DELETE FROM books WHERE id = ?";
 
         try (Connection connection = DBManager.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql)) {
+            PreparedStatement st = connection.prepareStatement(sql)) {
 
             st.setInt(1, id);
             st.executeUpdate();

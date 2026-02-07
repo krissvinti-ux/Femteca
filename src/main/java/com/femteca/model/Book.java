@@ -6,11 +6,13 @@ public class Book {
     private String title;
     private String description;
     private String code;
+    private Author author;
 
-    public Book (String title, String description, String code) {
+    public Book (String title, String description, String code, Author author) {
         this.title = title;
         this.description = description;
         this.code = code;
+        this.author = author;
     }
     public Book () {
     }
