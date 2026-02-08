@@ -1,5 +1,7 @@
 package com.femteca.repository;
 
-public interface GenreRepository {
+import com.femteca.model.Genre;
 
+public interface GenreRepository {
+    Genre readGenreById(int id);
 }
