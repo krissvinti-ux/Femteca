@@ -53,17 +53,23 @@ public class BookView {
     
     public void updateBook(Scanner scanner){
         System.out.println("Aqui tienes la lista de libros disponibles : ");
+
+
         System.out.print("Ingresa el numero del libro que quieres actualizar : ");
         int id = scanner.nextInt();
         scanner.nextLine();
+
         System.out.print("Ingresa el nuevo titulo(or press ENTER):  ");
         String title = scanner.nextLine();
+
         System.out.print("Ingresa la nueva descripcion(or press ENTER):  ");
         String description = scanner.nextLine();
+
         System.out.print("Ingresa el nuevo codigo(or press ENTER):  ");
         String code = scanner.nextLine();
         
         Book book = new Book(title, description, code);
+        book.setId(id);
 
         bookController.updateBook(book);
         System.out.println("libro actualizado correctamente");

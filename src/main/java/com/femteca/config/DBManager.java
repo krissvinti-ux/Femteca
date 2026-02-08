@@ -14,7 +14,7 @@ static Dotenv dotenv=Dotenv.load();
 
 private static final String URL = "jdbc:postgresql://localhost:5432/femteca";
 private static final String USER =dotenv.get("DB_USER");
-private static final String PASS =dotenv.get("DB_PASSWORD");
+private static final String PASS =dotenv.get("DB_PASS");
 
 public static Connection getConnection() throws SQLException{
     return DriverManager.getConnection(URL, USER, PASS);

@@ -1,5 +1,7 @@
 package com.femteca.controller;
 
+import java.util.List;
+
 import com.femteca.model.Book;
 import com.femteca.repository.BookRepository;
 
@@ -14,20 +16,16 @@ public class BookController {
    bookRepository.createBook(book);
   }
 
-
-    public Book readBookById(int id) {
+  public Book readBookById(int id) {
         return bookRepository.readBookById(id);
-    }
+  }
 
         public void updateBook (Book book) {
         bookRepository.updateBook(book);
-         }
-        public void deleteBook(int id) {
+  }
+  public void deleteBook(int id) {
         bookRepository.deleteBook(id);
-    }
-   
-
-    
+    }  
 }
         
 

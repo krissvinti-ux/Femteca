@@ -28,7 +28,6 @@ public class BookRepositoryImpl implements BookRepository {
 
     }
 
-
     @Override
     public Book readBookById(int id) {
         String sql = "SELECT id, title, description, code FROM books WHERE id = ?";
@@ -55,13 +54,14 @@ public class BookRepositoryImpl implements BookRepository {
         }
     }
 
+
     @Override
     public void updateBook(Book book) {
 
     String sql =
     "UPDATE books " +
     "SET title = ?, description = ?, code = ? " +
-    "WHERE book_id = ?";
+    "WHERE id = ?";
 
         try (Connection connection = DBManager.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, book.getTitle());
@@ -78,7 +78,7 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public void deleteBook(int id) {
-        String sql = "DELETE FROM books WHERE book_id = ?";
+        String sql = "DELETE FROM books WHERE id = ?";
 
         try (Connection connection = DBManager.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
