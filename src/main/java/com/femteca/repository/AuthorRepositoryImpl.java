@@ -11,27 +11,33 @@ import com.femteca.model.Author;
 public class AuthorRepositoryImpl implements AuthorRepository {
 
     
-    @Override
-    public String readAuthors() {
+@Override
+public Author readAuthor(int id) {
 
-        String sql = "SELECT id, author FROM authors";
+    String sql = "SELECT id, author FROM authors WHERE id = ?";
 
-        try (
-            Connection connection = DBManager.getConnection(); PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-        ) {
-            while (rs.next()) {
-                Author author = new Author();
-                author.setId(rs.getInt("id"));
-                author.setName(rs.getString("author"));
-            }
+    try (
+        Connection connection = DBManager.getConnection();
+        PreparedStatement st = connection.prepareStatement(sql)
+    ) {
 
-        } catch (SQLException e) {
-            throw new RuntimeException("no se ha podido leer la lista de autores"+ e.getMessage());
+        st.setInt(1, id);
+        ResultSet rs = st.executeQuery();
+
+        if (rs.next()) {
+            Author author = new Author();
+            author.setId(rs.getInt("id"));
+            author.setName(rs.getString("author"));
+            return author;
         }
 
-        return null;
+    } catch (SQLException e) {
+        throw new RuntimeException(
+            "No se ha podido leer el autor con id " + id + ": " + e.getMessage()
+        );
     }
 
+    return null;
 }
+    }
 

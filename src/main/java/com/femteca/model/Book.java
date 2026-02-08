@@ -44,6 +44,14 @@ public class Book {
     public String getCode() {
         return code;
     }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
     
 
 }

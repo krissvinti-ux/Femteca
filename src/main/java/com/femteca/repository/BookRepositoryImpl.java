@@ -47,14 +47,14 @@ public class BookRepositoryImpl implements BookRepository {
 
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
-                    Book book = new Book();
-                    Author author = new Author();
-                    book.setId(rs.getInt("id"));
-                    book.setTitle(rs.getString("title"));
-                    book.setDescription(rs.getString("description"));
-                    book.setCode(rs.getString("code"));
+                    int authorId = rs.getInt("author_id");
+                    Author author = authorRepository.readAuthor(authorId);
+                    Book book = new Book( 
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getString("code"),
+                    author);
                     
-                    author.setId(rs.getInt("author_id"));
                     return book;
                 }
                 return null;

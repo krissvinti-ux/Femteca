@@ -5,7 +5,6 @@ import java.util.Scanner;
 import com.femteca.controller.BookController;
 import com.femteca.model.Author;
 import com.femteca.model.Book;
-import com.femteca.repository.BookRepositoryImpl;
 
 public class BookView {
     private static final Author Author = null;
@@ -50,7 +49,11 @@ public class BookView {
         System.out.println("Libro encontrado");
         System.out.println("ID: " + book.getId());
         System.out.println("Título: " + book.getTitle());
-        System.out.println("Author : " + author.getAuthor());
+        if (book.getAuthor() != null) {
+            System.out.println("Author: " + book.getAuthor().getName());
+        } else {
+            System.out.println("Author: Unknown");
+        }
         System.out.println("Descripción: " + book.getDescription());
         System.out.println("Código: " + book.getCode());
     }

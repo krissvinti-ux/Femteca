@@ -1,9 +1,10 @@
 package com.femteca.repository;
 
+import com.femteca.model.Author;
 
 public interface AuthorRepository {
 
-    String readAuthors();    
+    Author readAuthor(int id);    
 
 }
 
