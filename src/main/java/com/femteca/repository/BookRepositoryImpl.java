@@ -3,6 +3,8 @@ package com.femteca.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.ResultSet;
 
 import com.femteca.config.DBManager;
@@ -59,11 +61,59 @@ public class BookRepositoryImpl implements BookRepository {
                 }
                 return null;
             }
-
         } catch (SQLException e) {
             throw new RuntimeException("Error al leer libro: " + e.getMessage());
         }
     }
+
+    @Override
+    public List<Book> readBookByAuthor(String authorName) {
+
+        List<Book> books = new ArrayList<>();
+
+        String sql = """
+        SELECT b.id AS book_id,
+            b.title,
+            b.description,
+            b.code,
+            a.id AS author_id,
+            a.author AS author_name
+        FROM books b
+        JOIN authors a ON b.author_id = a.id
+        WHERE a.author ILIKE ?
+    """;
+
+        try (Connection connection = DBManager.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql)) {
+
+            st.setString(1, "%" +  authorName + "%");
+            ResultSet rs = st.executeQuery();
+
+                while (rs.next()) {
+
+            Author author = new Author();
+            author.setId(rs.getInt("author_id"));
+            author.setName(rs.getString("author_name"));
+
+            Book book = new Book(
+                rs.getString("title"),
+                rs.getString("description"),
+                rs.getString("code"),
+                author
+            );
+            book.setId(rs.getInt("book_id"));
+
+            books.add(book);
+        }
+
+    } catch (SQLException e) {
+        throw new RuntimeException(
+            "No se ha podido buscar libros por autor: " + e.getMessage()
+        );
+    }
+
+    return books;
+}
 
     @Override
     public void updateBook(Book book) {

@@ -1,5 +1,6 @@
 package com.femteca.view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.femteca.controller.BookController;
@@ -57,6 +58,29 @@ public class BookView {
         System.out.println("Descripción: " + book.getDescription());
         System.out.println("Código: " + book.getCode());
     }
+
+    public void readBookByAuthor(){
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Ingresa el Author : ");
+            String authorName = scanner.nextLine();
+
+            List<Book> books = bookController.readBookByAuthor(authorName);
+
+            if (books.isEmpty()) {
+                System.out.println("No se encontraron libros para ese autor.");
+                return;
+                
+            }
+            for (Book book : books) {
+                System.out.println("Título: " + book.getTitle());
+                System.out.println("Autor: " + book.getAuthor().getName());
+                System.out.println("Descripción: " + book.getDescription());
+                System.out.println("Código: " + book.getCode());
+
+                
+}
+        }
+    };
 
     public void updateBook(Scanner scanner) {
         System.out.println("Aqui tienes la lista de libros disponibles : ");

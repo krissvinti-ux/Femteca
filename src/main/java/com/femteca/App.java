@@ -19,8 +19,9 @@ public class App
             BookRepository bookRepo = new BookRepositoryImpl(authorRepo);
             BookController bookController = new BookController(bookRepo);
             BookView bookView = new BookView(bookController);
-            bookView.createBook(scanner);
-            bookView.readBookById(scanner);
+            // bookView.createBook(scanner);
+            // bookView.readBookById(scanner);
+            bookView.readBookByAuthor();
             bookView.updateBook(scanner);
             bookView.deleteBookView(scanner); 
         } catch (Exception e) {
