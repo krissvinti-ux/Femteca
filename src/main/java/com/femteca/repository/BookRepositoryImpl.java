@@ -11,7 +11,7 @@ import com.femteca.model.Book;
 public class BookRepositoryImpl implements BookRepository {
 
     @Override
-    public void createBook(Book book) {
+    public void createBook (Book book) {
         
         String sql = "INSERT INTO books (title, description, code) VALUES (?, ?, ?)";
 

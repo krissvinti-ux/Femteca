@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.femteca.controller.BookController;
 import com.femteca.model.Book;
+import com.femteca.model.Genre;
 
 public class BookView {
     private final BookController bookController;
@@ -29,6 +30,15 @@ public class BookView {
 
         bookController.createBook(book);
         System.out.println("Libro creado con éxito!");
+    }
+
+    public void createGenre(Scanner scanner){
+        System.out.println("Ingrese nuevo género: ");
+        String genreName = scanner.nextLine();
+        Genre genre = new Genre();
+        genre.setGenre(genreName);
+        bookController.createGenre(genre);
+        System.out.println("Género creado creado con éxito!");
     }
 
     public void readBookById(Scanner scanner) {
