@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 
 import com.femteca.config.DBManager;
 import com.femteca.model.Book;
+import com.femteca.model.Colors;
 
 public class BookRepositoryImpl implements BookRepository {
 
@@ -23,7 +24,7 @@ public class BookRepositoryImpl implements BookRepository {
             //st.setString(5, book.getGenre());
             st.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error al crear Libro" + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al crear Libro" + e.getMessage() + Colors.RESET);
         }
 
     }
@@ -51,7 +52,7 @@ public class BookRepositoryImpl implements BookRepository {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error al leer libro: " + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al leer libro: " + e.getMessage() + Colors.RESET);
         }
     }
 
@@ -71,7 +72,7 @@ public class BookRepositoryImpl implements BookRepository {
             st.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error al actualizar libro" + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al actualizar libro" + e.getMessage() + Colors.RESET);
         }
     
 }
@@ -81,13 +82,13 @@ public class BookRepositoryImpl implements BookRepository {
         String sql = "DELETE FROM books WHERE id = ?";
 
         try (Connection connection = DBManager.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql)) {
+            PreparedStatement st = connection.prepareStatement(sql)) {
 
             st.setInt(1, id);
             st.executeUpdate();
 
         } catch (Exception e) {
-            throw new RuntimeException("Error al borrar Libro: " + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al borrar Libro: " + e.getMessage() + Colors.RESET);
         }
     }
 }
