@@ -16,7 +16,7 @@ public class App
             BookRepository repo = new BookRepositoryImpl();
             BookController bookController = new BookController(repo);
             BookView bookView = new BookView(bookController);
-            // bookView.deco();
+            bookView.deco();
             bookView.menu(scanner);
             // bookView.createBook(scanner);
             // bookView.readBookById(scanner);

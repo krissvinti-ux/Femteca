@@ -22,8 +22,6 @@ public void deco () {
 
 public void menu (Scanner scanner) {
 
-    deco();
-
     System.out.println("""
         
             MENÚ PRINCIPAL      
