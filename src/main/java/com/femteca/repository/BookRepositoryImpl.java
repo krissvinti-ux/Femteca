@@ -40,7 +40,7 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public Book readBookById(int id) {
-        String sql = "SELECT id, title, description, code, author_id FROM books WHERE id = ?";
+        String sql = "SELECT id, title, description, code, author_id FROM books WHEREid = ?"; 
 
         try (Connection connection = DBManager.getConnection();
                 PreparedStatement st = connection.prepareStatement(sql)) {

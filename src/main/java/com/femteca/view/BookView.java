@@ -51,9 +51,9 @@ public class BookView {
         System.out.println("ID: " + book.getId());
         System.out.println("Título: " + book.getTitle());
         if (book.getAuthor() != null) {
-            System.out.println("Author: " + book.getAuthor().getName());
+            System.out.println("Autor: " + book.getAuthor().getName());
         } else {
-            System.out.println("Author: Unknown");
+            System.out.println("Autor desconocido");
         }
         System.out.println("Descripción: " + book.getDescription());
         System.out.println("Código: " + book.getCode());
