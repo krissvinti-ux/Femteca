@@ -12,4 +12,3 @@ public interface BookRepository {
 
     void deleteBook(int id);
     }
-
