@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import com.femteca.config.DBManager;
 import com.femteca.model.Author;
 import com.femteca.model.Book;
+import com.femteca.model.Colors;
 
 public class BookRepositoryImpl implements BookRepository {
 
@@ -32,7 +33,7 @@ public class BookRepositoryImpl implements BookRepository {
             //st.setString(5, book.getGenre());
             st.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error al crear Libro" + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al crear Libro" + e.getMessage() + Colors.RESET);
         }
 
     }
@@ -62,7 +63,7 @@ public class BookRepositoryImpl implements BookRepository {
                 return null;
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error al leer libro: " + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al leer libro: " + e.getMessage() + Colors.RESET);
         }
     }
 
@@ -131,7 +132,7 @@ public class BookRepositoryImpl implements BookRepository {
             st.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error al actualizar libro" + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al actualizar libro" + e.getMessage() + Colors.RESET);
         }
     
 }
@@ -147,7 +148,7 @@ public class BookRepositoryImpl implements BookRepository {
             st.executeUpdate();
 
         } catch (Exception e) {
-            throw new RuntimeException("Error al borrar Libro: " + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al borrar Libro: " + e.getMessage() + Colors.RESET);
         }
     }
 }
