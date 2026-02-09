@@ -20,7 +20,7 @@ public class App
             BookController bookController = new BookController(bookRepo, genreRepo);
             BookView bookView = new BookView(bookController);
             bookView.createBook(scanner);
-            bookView.createGenre(scanner);
+           // bookView.getOrCreateGenre(scanner);
             bookView.readBookById(scanner);
             bookView.updateBook(scanner);
             bookView.deleteBookView(scanner); 

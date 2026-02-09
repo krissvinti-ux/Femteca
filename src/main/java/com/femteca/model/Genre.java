@@ -3,21 +3,29 @@ package com.femteca.model;
 public class Genre {
 
     private int id;
-    private String genre;
+    private String name;
 
-    public Genre (String genre){
-        this.genre = genre;
+    public Genre (String name){
+        this.name = name;
+    }
+
+      public Genre () {
     }
 
     public String getGenre() {
-        return genre;
+        return name;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGenre(String name) {
+        this.name = name;
     }
 
-    public Genre () {
+    public int getId() {
+        return id;
     }
-    
+
+    public void setId(int id) {
+        this.id = id;
+    }
+ 
 }

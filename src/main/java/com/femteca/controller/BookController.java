@@ -31,8 +31,14 @@ public class BookController {
         bookRepository.deleteBook(id);
     }
 
-    public void createGenre(Genre genre){
-        genreRepository.createGenre(genre);
+    public Genre getOrCreateGenre(String genreName) {
+        Genre genre = genreRepository.findByName(genreName); 
+
+        if (genre == null){
+            genre = new Genre();
+            genre.setGenre(genreName);
+            genre = genreRepository.saveGenre(genre);
     }
-    
+        return genre;
+    }
 }

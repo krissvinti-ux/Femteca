@@ -23,23 +23,24 @@ public class BookView {
         String description = scanner.nextLine();
         System.out.println("Ingrese el código ISBN (xxx-x-xxxxx-xxx-x): ");
         String code = scanner.nextLine();
-        // System.out.println("Ingrese género del libro: ");
-        // String genre = scanner.nextLine();
-
+        System.out.println("Ingrese género del libro: ");
+        String genreName = scanner.nextLine();
+        Genre genre = bookController.getOrCreateGenre(genreName);
         Book book = new Book(title, description, code);
-
+        book.setGenre(genre);
         bookController.createBook(book);
-        System.out.println("Libro creado con éxito!");
+         System.out.println("Libro creado con éxito!");
     }
 
-    public void createGenre(Scanner scanner){
+    /*public void createGenre(Scanner scanner){
         System.out.println("Ingrese nuevo género: ");
         String genreName = scanner.nextLine();
-        Genre genre = new Genre();
-        genre.setGenre(genreName);
-        bookController.createGenre(genre);
-        System.out.println("Género creado creado con éxito!");
-    }
+        Genre genre = bookController.getOrCreateGenre(genreName);
+        //Book book = new Book(title, description, code);
+        //genre.setGenre(genre);
+        //bookController.createBook(book);
+       
+    }*/
 
     public void readBookById(Scanner scanner) {
         System.out.print("Ingresa el ID del libro: ");

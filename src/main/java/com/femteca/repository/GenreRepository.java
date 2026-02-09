@@ -3,7 +3,7 @@ import com.femteca.model.Genre;
 
 public interface GenreRepository {
 
-    //void updateGenre(Genre genre);
+    Genre findByName(String name);
+    Genre saveGenre(Genre genre);
 
-    void createGenre(Genre genre);
 }
