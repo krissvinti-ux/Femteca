@@ -1,4 +1,4 @@
-    package com.femteca.repository;
+package com.femteca.repository;
 
 import com.femteca.model.Book;
 
