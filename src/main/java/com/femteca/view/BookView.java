@@ -9,9 +9,91 @@ import com.femteca.model.Colors;
 
 public class BookView {
 
-    public void deco() {
+public void deco () {
 
-        System.err.println(Colors.YELLOW + "\n____   " + Colors.GREEN + "   ____ " + Colors.BLUE + " ____ "
+    System.err.println(Colors.YELLOW+ "\n____   "+Colors.GREEN+"   ____ "+Colors.BLUE+" ____ "+Colors.YELLOW+"____ "+Colors.PURPLE+"____ "+Colors.CYAN +" ____ "+Colors.WHITE+" ____ "+Colors.GREEN+"____ "+Colors.RED+"____   "+Colors.WHITE+"  ____"+Colors.PURPLE+" ____                                                                                 "+Colors.GREEN+"   ____ "+Colors.BLUE+" ____ "+Colors.YELLOW+"____ "+Colors.PURPLE+"____ "+Colors.CYAN +" ____ "+Colors.WHITE+" ____ "+Colors.GREEN+"____ "+Colors.RED+"____   "+Colors.WHITE+"  ____"+Colors.PURPLE+" ____" + Colors.YELLOW +"____   "+ Colors.RESET );
+    System.err.println(Colors.YELLOW+ "\\   \\   "+Colors.GREEN+"  |   |"+Colors.BLUE+" |   |"+Colors.YELLOW+"|   |"+Colors.PURPLE+"|   |"+Colors.CYAN +" |   | "+Colors.WHITE+"|   |"+Colors.GREEN+"|   |"+Colors.RED+"\\   \\  "+Colors.WHITE+"  |   |"+Colors.PURPLE+"|   |" + Colors.WHITE+ "                                                                                " +Colors.GREEN+"  |   |"+Colors.BLUE+" |   |"+Colors.YELLOW+"|   |"+Colors.PURPLE+"|   |"+Colors.CYAN +" |   | "+Colors.WHITE+"|   |"+Colors.GREEN+"|   |"+Colors.RED+"\\   \\  "+Colors.WHITE+"  |   |"+Colors.PURPLE+"|   |"  +Colors.YELLOW+ "\\   \\   "+ Colors.RESET );
+    System.err.println(Colors.YELLOW+" \\   \\  "+Colors.GREEN+"  |---|"+Colors.BLUE+" |---|"+Colors.YELLOW+"|   |"+Colors.PURPLE+"|   | "+Colors.CYAN +"|   | "+Colors.WHITE+"|   |"+Colors.GREEN+"|   | "+Colors.RED+"\\---\\  "+Colors.WHITE+" |   |"+Colors.PURPLE+"|   |" + Colors.WHITE+ "      =======  =======  ||\\\\    /|  ========   =======     =====      //\\\\       "+Colors.GREEN+" |   |"+Colors.BLUE+" |   |"+Colors.YELLOW+"|   |"+Colors.PURPLE+"|   |"+Colors.CYAN +" |   | "+Colors.WHITE+"|   |"+Colors.GREEN+"|   |"+Colors.RED+" \\   \\  "+Colors.WHITE+" |   |"+Colors.PURPLE+"|   |" +Colors.YELLOW+ " \\   \\   "+ Colors.RESET);
+    System.err.println(Colors.YELLOW+"  \\   \\  "+Colors.GREEN+" |---|"+Colors.BLUE+" |---|"+Colors.YELLOW+"|   |"+Colors.PURPLE+"|---| "+Colors.CYAN +"|   | "+Colors.WHITE+"|---|"+Colors.GREEN+"|   | "+Colors.RED+" \\---\\ "+Colors.WHITE+" |   |"+Colors.PURPLE+"|   |" + Colors.WHITE+ "      |        |        || \\\\  / |     ||      |         //          //  \\\\      "+Colors.GREEN+" |---|"+Colors.BLUE+" |---|"+Colors.YELLOW+"|   |"+Colors.PURPLE+"|   | "+Colors.CYAN +"|   | "+Colors.WHITE+"|   |"+Colors.GREEN+"|   | "+Colors.RED+" \\---\\  "+Colors.WHITE+"|   |"+Colors.PURPLE+"|   |"  +Colors.YELLOW+ "  \\   \\  "+Colors.RESET);
+    System.err.println(Colors.YELLOW+"   \\   \\  "+Colors.GREEN+"|   | "+Colors.BLUE+"|   |"+Colors.YELLOW+"|   |"+Colors.PURPLE+"|---| "+Colors.CYAN +"|   |"+Colors.WHITE+" |---|"+Colors.GREEN+"|   | "+Colors.RED+"  \\   \\ "+Colors.WHITE+"|   |"+Colors.PURPLE+"|   |" + Colors.WHITE+ "      |---     |---     ||  \\\\/  |     ||      |---     ||          //----\\\\      "+Colors.GREEN+"|   | "+Colors.BLUE+"|   |"+Colors.YELLOW+"|   |"+Colors.PURPLE+"|---| "+Colors.CYAN +"|   |"+Colors.WHITE+" |---|"+Colors.GREEN+"|   | "+Colors.RED+"  \\   \\ "+Colors.WHITE+"|   |"+Colors.PURPLE+"|   |" + Colors.YELLOW+"   \\   \\  " + Colors.RESET);
+    System.err.println(Colors.YELLOW+"    \\   \\ "+Colors.GREEN+"|   | "+Colors.BLUE+"|   |"+Colors.YELLOW+"|   |"+Colors.PURPLE+"|   | "+Colors.CYAN +"|   | "+Colors.WHITE+"|   |"+Colors.GREEN+"|   |  "+Colors.RED+"  \\   \\"+Colors.WHITE+"|   |"+Colors.PURPLE+"|   |" + Colors.WHITE+ "      |        |_____   ||       |     ||      |_____    \\\\_____   //      \\\\     "+Colors.GREEN+"|   | "+Colors.BLUE+"|   |"+Colors.YELLOW+"|   |"+Colors.PURPLE+"|   | "+Colors.CYAN +"|   | "+Colors.WHITE+"|   |"+Colors.GREEN+"|   |  "+Colors.RED+"  \\   \\"+Colors.WHITE+"|   |"+Colors.PURPLE+"|   |" +Colors.YELLOW+"    \\   \\ "+Colors.RESET);
+    System.out.println(Colors.BROWN + Colors.BOLD + "==========================================================================================================================================================================================================================" + Colors.RESET);
+    System.out.println(" ");
+}
+
+public void menu (Scanner scanner) {
+
+    System.out.println("""
+        
+            MENÚ PRINCIPAL      
+                                │ 1. Ver libros               │
+                                │ 2. Añadir libro             │
+                                │ 3. Editar libro             │
+                                │ 4. Eliminar libro           │
+                                │ 5. Salir                    │
+
+        """);
+    System.out.print("Elige un accion :");
+    int mainMenu = scanner.nextInt();
+    scanner.nextLine();
+
+    switch (mainMenu) {
+
+        case 1:
+            System.out.println("""
+        
+            VER LIBROS      
+                                │ 1. Buscar por título        │
+                                │ 2. Buscar por autor         │
+                                │ 3. Buscar por género        │
+                                │ 4. Volver al menu principal │
+
+        """);
+        System.out.print("Elige un accion :");
+        int readChoice = scanner.nextInt();
+        scanner.nextLine();
+
+            switch (readChoice) {
+                case 1:
+                    readBookById(scanner);
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    menu(scanner);
+                default:
+                    System.out.println("\n--------------------");
+                    System.out.println(Colors.RED + "seleccion invalida, por favor ingresa un numero entre 1 y 4" + Colors.RESET);
+                    System.out.println("\n--------------------");
+                    menu(scanner);
+            }
+            
+            break;
+
+        case 2:
+            createBook(scanner);
+            menu(scanner);
+
+        case 3:
+            updateBook(scanner);
+            menu(scanner);
+
+        case 4:
+            deleteBookView(scanner);
+            menu(scanner);
+
+        case 5:
+            break;
+
+        default:
+            System.out.println("\n--------------------");
+            System.out.println(Colors.RED + "seleccion invalida, por favor ingresa un numero entre 1 y 5");
+            System.out.println("\n--------------------");
+            menu(scanner);
+        }}
+
+       /*  System.err.println(Colors.YELLOW + "\n____   " + Colors.GREEN + "   ____ " + Colors.BLUE + " ____ "
                 + Colors.YELLOW + "____ " + Colors.PURPLE + "____ " + Colors.CYAN + " ____ " + Colors.WHITE + " ____ "
                 + Colors.GREEN + "____ " + Colors.RED + "____   " + Colors.WHITE + "  ____" + Colors.PURPLE
                 + " ____                                                                                 "
@@ -131,7 +213,7 @@ public class BookView {
 
         }
 
-    }
+    }*/
 
     private final BookController bookController;
 
@@ -161,7 +243,9 @@ public class BookView {
         Book book = new Book(title, description, code);
         book.setGenre(genre);
         bookController.createBook(book);
+        System.out.println("\n--------------------");
         System.out.println(Colors.GREEN + "\nLibro creado con éxito!" + Colors.RESET);
+        System.out.println("\n--------------------");
         menu(scanner);
     }
 
@@ -173,7 +257,9 @@ public class BookView {
         Book book = bookController.readBookById(id);
 
         if (book == null) {
-            System.out.println(Colors.RED + "No existe un libro con ID: " + id + Colors.RESET);
+            System.out.println("\n--------------------");
+            System.out.println(Colors.RED + "No existe un libro con ID: " + id  + Colors.RESET);
+            System.out.println("\n--------------------");
             menu(scanner);
         }
 
@@ -199,10 +285,15 @@ public class BookView {
         System.out.print("Ingresa el nuevo codigo(or press ENTER):  ");
         String code = scanner.nextLine();
 
-        Book book = new Book(title, description, code);
+        Book book = bookController.readBookById(id);
+        book.setTitle(title);
+        book.setCode(code);
+        book.setDescription(description);
 
         bookController.updateBook(book);
+        System.out.println("\n--------------------");
         System.out.println(Colors.GREEN + "libro actualizado correctamente" + Colors.RESET);
+        System.out.println("\n--------------------");
         menu(scanner);
     }
 
@@ -212,7 +303,9 @@ public class BookView {
         scanner.nextLine();
 
         bookController.deleteBook(id);
+        System.out.println("\n--------------------");
         System.out.println(Colors.GREEN + "Libro eliminado correctamente." + Colors.RESET);
+        System.out.println("\n--------------------");
         menu(scanner);
     }
 
