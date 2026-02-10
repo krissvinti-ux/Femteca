@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 import com.femteca.config.DBManager;
+
 import com.femteca.model.Book;
 
 public class BookRepositoryImpl implements BookRepository {
@@ -13,13 +14,14 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public void createBook(Book book) {
         
-        String sql = "INSERT INTO books (title, description, code) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO books (title, description, code, author_id) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = DBManager.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, book.getTitle());
-            //st.setString(2, book.getAuthor());
             st.setString(2, book.getDescription());
             st.setString(3, book.getCode());
+            st.setInt(4, book.getAuthor().getId());
+
             //st.setString(5, book.getGenre());
             st.executeUpdate();
         } catch (SQLException e) {
@@ -68,6 +70,7 @@ public class BookRepositoryImpl implements BookRepository {
             st.setString(2, book.getDescription());
             st.setString(3, book.getCode());
             st.setInt(4, book.getId());
+
             st.executeUpdate();
 
         } catch (SQLException e) {
@@ -90,4 +93,5 @@ public class BookRepositoryImpl implements BookRepository {
             throw new RuntimeException("Error al borrar Libro: " + e.getMessage());
         }
     }
-}
+
+    }

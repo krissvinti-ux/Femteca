@@ -1,20 +1,41 @@
 package com.femteca.model;
 
+
 public class Book {
 
     private int id;
     private String title;
     private String description;
     private String code;
+    private Author author;
+
+    public Book (String title, String description, String code, Author author) {
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.author= author;
+     
+    }
 
     public Book (String title, String description, String code) {
         this.title = title;
         this.description = description;
         this.code = code;
+    
+    
     }
     public Book () {
     }
 
+     public void setAuthor(Author author) {
+    this.author = author;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    
     public void setTitle(String title) {
         this.title = title;
     }
