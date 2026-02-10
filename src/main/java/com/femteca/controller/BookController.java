@@ -1,7 +1,6 @@
 package com.femteca.controller;
 
 import com.femteca.model.Book;
-import com.femteca.model.Colors;
 import com.femteca.model.Genre;
 import com.femteca.repository.BookRepository;
 import com.femteca.repository.GenreRepository;
@@ -32,16 +31,13 @@ public class BookController {
         bookRepository.deleteBook(id);
     }
 
-    public Genre getOrCreateGenre(String genreName) {
-        Genre genre = genreRepository.findByName(genreName);
+    public Genre createGenre(String name) {
+        Genre genre = new Genre();
+        genre.setGenre(name);
+        return genreRepository.saveGenre(genre);
+    }
 
-        if (genre == null) {
-            genre = new Genre();
-            genre.setGenre(genreName);
-            genre = genreRepository.saveGenre(genre);
-            System.out.println("\n--------------------");
-            System.out.println(Colors.GREEN + "\nGénero creado con éxito!" + Colors.RESET);
-        }
-        return genre;
+    public Genre getGenreByName(String name) {
+        return genreRepository.findByName(name);
     }
 }
