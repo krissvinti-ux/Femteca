@@ -32,13 +32,13 @@ public class BookController {
     }
 
     public Genre getOrCreateGenre(String genreName) {
-        Genre genre = genreRepository.findByName(genreName); 
+        Genre genre = genreRepository.findByName(genreName);
 
-        if (genre == null){
+        if (genre == null) {
             genre = new Genre();
             genre.setGenre(genreName);
             genre = genreRepository.saveGenre(genre);
-    }
+        }
         return genre;
     }
 }

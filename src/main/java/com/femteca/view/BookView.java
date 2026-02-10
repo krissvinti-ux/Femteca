@@ -32,16 +32,6 @@ public class BookView {
          System.out.println("Libro creado con éxito!");
     }
 
-    /*public void createGenre(Scanner scanner){
-        System.out.println("Ingrese nuevo género: ");
-        String genreName = scanner.nextLine();
-        Genre genre = bookController.getOrCreateGenre(genreName);
-        //Book book = new Book(title, description, code);
-        //genre.setGenre(genre);
-        //bookController.createBook(book);
-       
-    }*/
-
     public void readBookById(Scanner scanner) {
         System.out.print("Ingresa el ID del libro: ");
         int id = scanner.nextInt();
