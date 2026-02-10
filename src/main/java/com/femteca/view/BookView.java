@@ -1,5 +1,6 @@
 package com.femteca.view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.femteca.controller.BookController;
@@ -42,10 +43,11 @@ public void menu (Scanner scanner) {
             System.out.println("""
         
             VER LIBROS      
-                                │ 1. Buscar por título        │
-                                │ 2. Buscar por autor         │
-                                │ 3. Buscar por género        │
-                                │ 4. Volver al menu principal │
+                                │ 1. Ver todos los libros     │
+                                │ 2. Buscar por título        │
+                                │ 3. Buscar por autor         │
+                                │ 4. Buscar por género        │
+                                │ 5. Volver al menu principal │
 
         """);
         System.out.print("Elige un accion :");
@@ -53,13 +55,15 @@ public void menu (Scanner scanner) {
         scanner.nextLine();
 
             switch (readChoice) {
-                case 1:
-                    readBookById(scanner);
+                case 1 : 
+                    showAllBooks();
                 case 2:
-                    break;
+                    readBookById(scanner);
                 case 3:
                     break;
                 case 4:
+                    break;
+                case 5:
                     menu(scanner);
                 default:
                     System.out.println(Colors.RED + "seleccion invalida, por favor ingresa un numero entre 1 y 4" + Colors.RESET);
@@ -143,7 +147,8 @@ public void menu (Scanner scanner) {
 
     public void updateBook(Scanner scanner) {
         System.out.println("Aqui tienes la lista de libros disponibles : ");
-        System.out.print("Ingresa el numero del libro que quieres actualizar : ");
+        showAllBooks();
+        System.out.print("\nIngresa el numero del libro que quieres actualizar : ");
         int id = scanner.nextInt();
         scanner.nextLine();
         System.out.print("Ingresa el nuevo titulo(or press ENTER):  ");
@@ -161,7 +166,9 @@ public void menu (Scanner scanner) {
     }
 
     public void deleteBookView(Scanner scanner) {
-        System.out.print("Introduce el ID del libro a borrar: ");
+        System.out.println("Aqui tienes la lista de libros disponibles : ");
+        showAllBooks();
+        System.out.print("Introduce el numero del libro a eliminar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
 
@@ -169,5 +176,31 @@ public void menu (Scanner scanner) {
         System.out.println(Colors.GREEN + "Libro eliminado correctamente." + Colors.RESET);
         menu(scanner);
     }
+
+    public void showAllBooks() {
+
+    List<Book> books = bookController.readAllBooks();
+
+    if (books.isEmpty()) {
+        System.out.println("No hay libros registrados.");
+        return;
+    }
+
+    System.out.println("📚 Lista de libros:");
+    System.out.println("------------------");
+
+    for (Book book : books) {
+        System.out.println("ID: " + book.getId());
+        System.out.println("Título: " + book.getTitle());
+
+        if (book.getAuthor() != null) {
+            System.out.println("Autor: " + book.getAuthor().getName());
+        } else {
+            System.out.println("Autor: Desconocido");
+        }
+        System.out.println("Código: " + book.getCode());
+        System.out.println("------------------");
+    }
+}
 
 }

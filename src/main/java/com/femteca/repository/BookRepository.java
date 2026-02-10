@@ -1,5 +1,7 @@
 package com.femteca.repository;
 
+import java.util.List;
+
 import com.femteca.model.Book;
 
 public interface BookRepository {
@@ -11,4 +13,6 @@ public interface BookRepository {
     void updateBook(Book book);
 
     void deleteBook(int id);
-    }
+
+    List<Book> findAll();
+}

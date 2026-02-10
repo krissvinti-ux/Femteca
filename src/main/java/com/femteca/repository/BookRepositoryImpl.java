@@ -3,6 +3,8 @@ package com.femteca.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.ResultSet;
 
 import com.femteca.config.DBManager;
@@ -91,4 +93,55 @@ public class BookRepositoryImpl implements BookRepository {
             throw new RuntimeException(Colors.RED + "Error al borrar Libro: " + e.getMessage() + Colors.RESET);
         }
     }
-}
+
+    @Override
+public List<Book> findAll() {
+
+    List<Book> books = new ArrayList<>();
+
+    String sql = """
+        SELECT b.id AS book_id,
+            b.title,
+            b.code,
+            a.id AS author_id,
+            a.author AS author_name
+        FROM books b
+        LEFT JOIN authors a ON b.author_id = a.id
+        ORDER BY b.id
+    """;
+
+    try (
+        Connection connection = DBManager.getConnection();
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery()
+    ) {
+
+        while (rs.next()) {
+
+            Author author = null;
+
+            if (rs.getObject("author_id") != null) {
+                author = new Author();
+                author.setId(rs.getInt("author_id"));
+                author.setName(rs.getString("author_name"));
+            }
+
+            Book book = new Book(
+                rs.getString("title"),
+                rs.getString("description"),
+                rs.getString("code"),
+                author
+            );
+            book.setId(rs.getInt("book_id"));
+
+            books.add(book);
+        }
+
+    } catch (SQLException e) {
+        throw new RuntimeException(
+            "No se ha podido leer la lista de libros: " + e.getMessage()
+        );
+    }
+
+    return books;
+}}
