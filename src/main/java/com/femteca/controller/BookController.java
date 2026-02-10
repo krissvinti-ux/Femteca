@@ -11,9 +11,20 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    public void updateBook (Book book) {
+    public void createBook(Book book) {
+        bookRepository.createBook(book);
+    }
+
+    public Book readBookById(int id) {
+        return bookRepository.readBookById(id);
+    }
+
+    public void updateBook(Book book) {
         bookRepository.updateBook(book);
     }
-        
-};
 
+    public void deleteBook(int id) {
+        bookRepository.deleteBook(id);
+    }
+
+}

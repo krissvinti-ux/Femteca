@@ -1,9 +1,9 @@
-package com.femteca.repository;
+// package com.femteca.repository;
 
-import com.femteca.model.Genre;
+// import com.femteca.model.Genre;
 
-public interface GenreRepository {
+// public interface GenreRepository {
 
-    void updateGenre(Genre genre);
+//     void updateGenre(Genre genre);
             
-}
+// }

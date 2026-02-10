@@ -11,7 +11,6 @@ public class Book {
         this.title = title;
         this.description = description;
         this.code = code;
-
     }
     public Book () {
     }
@@ -22,13 +21,13 @@ public class Book {
     public String getTitle() {
         return title;
     }
-
     public void setId(int id) {
         this.id = id;
     }
     public int getId() {
         return id;
     }
+    
 
     public void setDescription(String description) {
         this.description = description;
