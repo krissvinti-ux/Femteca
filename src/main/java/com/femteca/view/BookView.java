@@ -62,7 +62,9 @@ public void menu (Scanner scanner) {
                 case 4:
                     menu(scanner);
                 default:
+                    System.out.println("\n--------------------");
                     System.out.println(Colors.RED + "seleccion invalida, por favor ingresa un numero entre 1 y 4" + Colors.RESET);
+                    System.out.println("\n--------------------");
                     menu(scanner);
             }
             
@@ -84,8 +86,11 @@ public void menu (Scanner scanner) {
             break;
 
         default:
+            System.out.println("\n--------------------");
             System.out.println(Colors.RED + "seleccion invalida, por favor ingresa un numero entre 1 y 5");
+            System.out.println("\n--------------------");
             menu(scanner);
+            
 
     }
 
@@ -113,12 +118,13 @@ public void menu (Scanner scanner) {
         String code = scanner.nextLine();
         // System.out.println("Ingrese género del libro: ");
         // String genre = scanner.nextLine();
-        System.out.println("\n--------------------");
 
         Book book = new Book(title, description, code);
 
         bookController.createBook(book);
+        System.out.println("\n--------------------");
         System.out.println(Colors.GREEN + "\nLibro creado con éxito!" + Colors.RESET);
+        System.out.println("\n--------------------");
         menu(scanner);
     }
 
@@ -130,7 +136,9 @@ public void menu (Scanner scanner) {
         Book book = bookController.readBookById(id);
 
         if (book == null) {
+            System.out.println("\n--------------------");
             System.out.println(Colors.RED + "No existe un libro con ID: " + id  + Colors.RESET);
+            System.out.println("\n--------------------");
             menu(scanner);
         }
 
@@ -156,10 +164,15 @@ public void menu (Scanner scanner) {
         System.out.print("Ingresa el nuevo codigo(or press ENTER):  ");
         String code = scanner.nextLine();
 
-        Book book = new Book(title, description, code);
+        Book book = bookController.readBookById(id);
+        book.setTitle(title);
+        book.setCode(code);
+        book.setDescription(description);
 
         bookController.updateBook(book);
+        System.out.println("\n--------------------");
         System.out.println(Colors.GREEN + "libro actualizado correctamente" + Colors.RESET);
+        System.out.println("\n--------------------");
         menu(scanner);
     }
 
@@ -169,7 +182,9 @@ public void menu (Scanner scanner) {
         scanner.nextLine();
 
         bookController.deleteBook(id);
+        System.out.println("\n--------------------");
         System.out.println(Colors.GREEN + "Libro eliminado correctamente." + Colors.RESET);
+        System.out.println("\n--------------------");
         menu(scanner);
     }
 
