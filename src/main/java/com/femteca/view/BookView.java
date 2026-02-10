@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.femteca.controller.BookController;
 import com.femteca.model.Book;
+import com.femteca.model.Genre;
 import com.femteca.model.Colors;
 
 public class BookView {
@@ -90,20 +91,13 @@ public void menu (Scanner scanner) {
             System.out.println(Colors.RED + "seleccion invalida, por favor ingresa un numero entre 1 y 5");
             System.out.println("\n--------------------");
             menu(scanner);
-            
-
-    }
-
-}
-
+        }}
 
     private final BookController bookController;
 
     public BookView(BookController bookController) {
         this.bookController = bookController;
     }
-
-
 
     public void createBook(Scanner scanner) {
         System.out.println("** Nuevo libro **");
@@ -116,11 +110,16 @@ public void menu (Scanner scanner) {
         String description = scanner.nextLine();
         System.out.println("Ingrese el código ISBN (xxx-x-xxxxx-xxx-x): ");
         String code = scanner.nextLine();
-        // System.out.println("Ingrese género del libro: ");
-        // String genre = scanner.nextLine();
-
+        System.out.println("Ingrese género del libro: ");
+        String genreName = scanner.nextLine();
+        Genre genre = bookController.getGenreByName(genreName);
+        if (genre == null) {
+            genre = bookController.createGenre(genreName);
+            System.out.println("\n--------------------");
+            System.out.println(Colors.GREEN + "\nGénero creado con éxito!" + Colors.RESET);
+        }
         Book book = new Book(title, description, code);
-
+        book.setGenre(genre);
         bookController.createBook(book);
         System.out.println("\n--------------------");
         System.out.println(Colors.GREEN + "\nLibro creado con éxito!" + Colors.RESET);
