@@ -102,7 +102,8 @@ public void menu (Scanner scanner) {
 
     public void createBook(Scanner scanner) {
         System.out.println("** Nuevo libro **");
-        System.out.println("Ingrese título del libro: ");
+        System.out.println("\n--------------------");
+        System.out.println("\nIngrese título del libro: ");
         String title = scanner.nextLine();
         // System.out.println("Ingrese Nombre y apellido del autor: ");
         // String author = scanner.nextLine();
@@ -112,11 +113,12 @@ public void menu (Scanner scanner) {
         String code = scanner.nextLine();
         // System.out.println("Ingrese género del libro: ");
         // String genre = scanner.nextLine();
+        System.out.println("\n--------------------");
 
         Book book = new Book(title, description, code);
 
         bookController.createBook(book);
-        System.out.println(Colors.GREEN + "Libro creado con éxito!" + Colors.RESET);
+        System.out.println(Colors.GREEN + "\nLibro creado con éxito!" + Colors.RESET);
         menu(scanner);
     }
 
@@ -132,11 +134,12 @@ public void menu (Scanner scanner) {
             menu(scanner);
         }
 
-        System.out.println("Libro encontrado");
+        System.out.println("\n--------------------");
         System.out.println("\nID: " + book.getId());
         System.out.println("Título: " + book.getTitle());
         System.out.println("Descripción: " + book.getDescription());
         System.out.println("Código: " + book.getCode());
+        System.out.println("\n--------------------");
 
         menu(scanner);
     }
