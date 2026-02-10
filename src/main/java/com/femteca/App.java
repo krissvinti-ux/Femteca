@@ -11,19 +11,20 @@ import com.femteca.view.BookView;
 
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ){
+
         Scanner scanner = new Scanner(System.in);
         try {
             BookRepository bookRepo = new BookRepositoryImpl();
             GenreRepository genreRepo = new GenreRepositoryImpl();
             BookController bookController = new BookController(bookRepo, genreRepo);
             BookView bookView = new BookView(bookController);
-            bookView.createBook(scanner);
-           // bookView.getOrCreateGenre(scanner);
-            bookView.readBookById(scanner);
-            bookView.updateBook(scanner);
-            bookView.deleteBookView(scanner); 
+            bookView.deco();
+            bookView.menu(scanner);
+            // bookView.createBook(scanner);
+            // bookView.readBookById(scanner);
+            // bookView.updateBook(scanner);
+            // bookView.deleteBookView(scanner); 
         } catch (Exception e) {
             System.err.println(e.getMessage());
         } finally {
