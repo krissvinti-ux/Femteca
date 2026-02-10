@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.femteca.model.Book;
+import com.femteca.model.Author;
+import com.femteca.repository.AuthorRepository;
 import com.femteca.repository.BookRepositoryImpl;
 
 @ExtendWith(MockitoExtension.class)
