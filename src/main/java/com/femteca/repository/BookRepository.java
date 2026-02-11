@@ -8,6 +8,7 @@ public interface BookRepository {
     void createBook(Book book);
 
     Book readBookById(int id);
+    
 
     List<Book> readBookByGenre(String genreName);
 
