@@ -11,6 +11,29 @@ import com.femteca.model.Genre;
 public class GenreRepositoryImpl implements GenreRepository {
 
     @Override
+    public Genre readGenreById(int id) {
+        String sql = "SELECT id, name, FROM genre WHERE id = ?";
+
+        try (Connection connection = DBManager.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql)) {
+
+            st.setInt(1, id);
+
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    Genre genre = new Genre();
+                    genre.setId(rs.getInt("id"));
+                    genre.setname(rs.getString("name"));
+                    return genre;
+                }
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al leer el genero: " + e.getMessage());
+        }
+    }
+
     public Genre findByName(String name) {
         String sql = "SELECT id, name FROM genre WHERE name = ?";
 
@@ -22,7 +45,7 @@ public class GenreRepositoryImpl implements GenreRepository {
             if (result.next()) {
                 Genre genre = new Genre();
                 genre.setId(result.getInt("id"));
-                genre.setGenre(result.getString("name"));
+                genre.setname(result.getString("name"));
                 return genre;
             }
             return null;
@@ -39,7 +62,7 @@ public class GenreRepositoryImpl implements GenreRepository {
                 PreparedStatement st = connection.prepareStatement(
                     sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-        st.setString(1, genre.getGenre());
+        st.setString(1, genre.getname());
         st.executeUpdate();
 
 

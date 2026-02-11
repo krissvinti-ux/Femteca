@@ -13,7 +13,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public void createAuthor(Author author) {
 
-        String sql = "INSERT INTO author (name) VALUES (?) RETURNING id";
+        String sql = "INSERT INTO authors (name) VALUES (?) RETURNING id";
         
 
         try (Connection connection = DBManager.getConnection();
@@ -29,4 +29,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             throw new RuntimeException("Error al crear autor: " + e.getMessage());
         }
     }
+
+  
 }
+

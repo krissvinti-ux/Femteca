@@ -9,6 +9,15 @@ public class Book {
     private String code;
     private Author author;
 
+    private Genre genre;
+
+    public Book(String title, String description, String code, Author author,Genre genre ) {
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.genre = genre;
+    }
+
 
     public Book (String title, String description, String code, Author author) {
         this.title = title;
@@ -17,16 +26,20 @@ public class Book {
         this.author= author;
      
     }
-    private Genre genre;
-
+    
     public Book(String title, String description, String code) {
         this.title = title;
         this.description = description;
-        this.code = code;
-    
-    
+        this.code = code;  
+
     }
 
+    public Book(String title, String description, String code,Genre genre ) {
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.genre = genre;
+    }
     public Book() {
     }
 
@@ -71,12 +84,15 @@ public class Book {
         return code;
     }
 
-    public Genre getGenre() {
-        return genre;
-    }
-
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
 
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+
+ 
 }

@@ -3,19 +3,32 @@ package com.femteca.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.ResultSet;
 
 import com.femteca.config.DBManager;
 
 import com.femteca.model.Book;
+import com.femteca.model.Genre;
 import com.femteca.model.Colors;
+import com.femteca.model.Author;
 
 public class BookRepositoryImpl implements BookRepository {
+    private final GenreRepository genreRepository;
+    private final AuthorRepository authorRepository;
+
+    public BookRepositoryImpl(GenreRepository genreRepository, AuthorRepository authorRepository) {
+        this.genreRepository = genreRepository;
+        this.authorRepository = authorRepository;
+        ;
+
+    }
 
     @Override
     public void createBook(Book book) {
-        
-        String sql = "INSERT INTO books (title, description, code, author_id, genre_id) VALUES (?, ?, ?, ?,?)";
+
+        String sql = "INSERT INTO books (title, description, code, author_id, genre_id) VALUES (?, ?, ?, ?, ?)";
 
         if (book.getGenre() == null) {
             throw new RuntimeException("El libro debe tener un género asignado");
@@ -37,7 +50,7 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public Book readBookById(int id) {
-        String sql = "SELECT id, title, description, code FROM books WHERE id = ?";
+        String sql = "SELECT id, title, description, code, genre_id FROM books WHERE id = ?";
 
         try (Connection connection = DBManager.getConnection();
                 PreparedStatement st = connection.prepareStatement(sql)) {
@@ -46,11 +59,15 @@ public class BookRepositoryImpl implements BookRepository {
 
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
-                    Book book = new Book();
-                    book.setId(rs.getInt("id"));
-                    book.setTitle(rs.getString("title"));
-                    book.setDescription(rs.getString("description"));
-                    book.setCode(rs.getString("code"));
+                    int genre_id = rs.getInt("genre_id");
+                    Genre genre = genreRepository.readGenreById(genre_id);
+                    //Author author= authorRepository.readAuthor (id);
+                    Book book = new Book(
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getString("code"),
+                            genre);
+
                     return book;
                 }
                 return null;
@@ -61,6 +78,52 @@ public class BookRepositoryImpl implements BookRepository {
         }
     }
 
+    @Override
+    public List<Book> readBookByGenre(String genreName) {
+
+        List<Book> books = new ArrayList<>();
+
+        String sql = """
+                    SELECT b.id AS book_id,
+                           b.title,
+                           b.description,
+                           b.code,
+                           a.id AS genre_id,
+                           a.genre AS genre_name
+                    FROM books b
+                    JOIN genre a ON b.genre_id = a.id
+                    WHERE a.genre ILIKE ?
+                """;
+
+        try (Connection connection = DBManager.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql)) {
+
+            st.setString(1, "%" + genreName + "%");
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                Genre genre = new Genre();
+                genre.setId(rs.getInt("genre_id"));
+                genre.setname(rs.getString("genre_name"));
+
+                Book book = new Book(
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getString("code"),
+                        genre);
+                book.setId(rs.getInt("book_id"));
+
+                books.add(book);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(
+                    "No se ha podido buscar libros por genero: " + e.getMessage());
+        }
+
+        return books;
+    }
 
     @Override
     public void updateBook(Book book) {
@@ -89,7 +152,7 @@ public class BookRepositoryImpl implements BookRepository {
         String sql = "DELETE FROM books WHERE id = ?";
 
         try (Connection connection = DBManager.getConnection();
-            PreparedStatement st = connection.prepareStatement(sql)) {
+                PreparedStatement st = connection.prepareStatement(sql)) {
 
             st.setInt(1, id);
             st.executeUpdate();
@@ -99,4 +162,4 @@ public class BookRepositoryImpl implements BookRepository {
         }
     }
 
-    }
+}
