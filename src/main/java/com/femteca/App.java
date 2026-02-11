@@ -6,6 +6,8 @@ import com.femteca.controller.BookController;
 import com.femteca.repository.AuthorRepositoryImpl;
 import com.femteca.repository.BookRepository;
 import com.femteca.repository.BookRepositoryImpl;
+import com.femteca.repository.GenreRepository;
+import com.femteca.repository.GenreRepositoryImpl;
 import com.femteca.view.BookView;
 
 public class App 
@@ -14,16 +16,15 @@ public class App
 
         Scanner scanner = new Scanner(System.in);
         try {
-            BookRepository repo = new BookRepositoryImpl();
+            BookRepository bookrepo = new BookRepositoryImpl();
             AuthorRepositoryImpl authorRepo = new AuthorRepositoryImpl();
-            BookController bookController = new BookController(repo);
+            GenreRepository genreRepo = new GenreRepositoryImpl();
+            BookController bookController = new BookController(bookrepo, genreRepo);
             BookView bookView = new BookView(bookController, authorRepo);
+
             bookView.deco();
             bookView.menu(scanner);
-            // bookView.createBook(scanner);
-            // bookView.readBookById(scanner);
-            // bookView.updateBook(scanner);
-            // bookView.deleteBookView(scanner); 
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
         } finally {
