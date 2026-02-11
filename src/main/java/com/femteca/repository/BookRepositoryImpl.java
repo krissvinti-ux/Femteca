@@ -61,7 +61,7 @@ public class BookRepositoryImpl implements BookRepository {
                 if (rs.next()) {
                     int genre_id = rs.getInt("genre_id");
                     Genre genre = genreRepository.readGenreById(genre_id);
-                    //Author author= authorRepository.readAuthor (id);
+                    // Author author= authorRepository.readAuthor (id);
                     Book book = new Book(
                             rs.getString("title"),
                             rs.getString("description"),
@@ -85,11 +85,11 @@ public class BookRepositoryImpl implements BookRepository {
 
         String sql = """
                     SELECT b.id AS book_id,
-                           b.title,
-                           b.description,
-                           b.code,
-                           a.id AS genre_id,
-                           a.genre AS genre_name
+                        b.title,
+                        b.description,
+                        b.code,
+                        a.id AS genre_id,
+                        a.genre AS genre_name
                     FROM books b
                     JOIN genre a ON b.genre_id = a.id
                     WHERE a.genre ILIKE ?
