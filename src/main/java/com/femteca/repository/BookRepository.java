@@ -15,4 +15,6 @@ public interface BookRepository {
     void deleteBook(int id);
 
     List<Book> readBookByAuthor(String authorName);
-    }
+    
+    List<Book> findAll();
+}

@@ -30,7 +30,10 @@ public class BookController {
     }
 
     public List<Book> readBookByAuthor(String authorName) {
-        return bookRepository.readBookByAuthor(authorName);
+        return bookRepository.readBookByAuthor(authorName);}
+        
+    public List<Book> readAllBooks() {
+        return bookRepository.findAll();
     }
 
 }
