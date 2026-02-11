@@ -7,23 +7,29 @@ import java.sql.ResultSet;
 
 import com.femteca.config.DBManager;
 import com.femteca.model.Book;
+import com.femteca.model.Colors;
 
 public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public void createBook(Book book) {
-        
-        String sql = "INSERT INTO books (title, description, code) VALUES (?, ?, ?)";
 
-        try (Connection connection = DBManager.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
+        if (book.getGenre() == null) {
+            throw new RuntimeException("El libro debe tener un género asignado");
+        }
+
+        String sql = "INSERT INTO books (title, description, code, genre_id) VALUES (?, ?, ?, ?)";
+
+        try (Connection connection = DBManager.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, book.getTitle());
-            //st.setString(2, book.getAuthor());
+            // st.setString(2, book.getAuthor());
             st.setString(2, book.getDescription());
             st.setString(3, book.getCode());
-            //st.setString(5, book.getGenre());
+            st.setInt(4, book.getGenre().getId());
             st.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error al crear Libro" + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al crear Libro" + e.getMessage() + Colors.RESET);
         }
 
     }
@@ -50,7 +56,7 @@ public class BookRepositoryImpl implements BookRepository {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error al leer libro: " + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al leer libro: " + e.getMessage() + Colors.RESET);
         }
     }
 
@@ -63,7 +69,8 @@ public class BookRepositoryImpl implements BookRepository {
     "SET title = ?, description = ?, code = ? " +
     "WHERE id = ?";
 
-        try (Connection connection = DBManager.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
+        try (Connection connection = DBManager.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, book.getTitle());
             st.setString(2, book.getDescription());
             st.setString(3, book.getCode());
@@ -71,23 +78,23 @@ public class BookRepositoryImpl implements BookRepository {
             st.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error al actualizar libro" + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al actualizar libro" + e.getMessage() + Colors.RESET);
         }
-    
-}
+
+    }
 
     @Override
     public void deleteBook(int id) {
         String sql = "DELETE FROM books WHERE id = ?";
 
         try (Connection connection = DBManager.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql)) {
+            PreparedStatement st = connection.prepareStatement(sql)) {
 
             st.setInt(1, id);
             st.executeUpdate();
 
         } catch (Exception e) {
-            throw new RuntimeException("Error al borrar Libro: " + e.getMessage());
+            throw new RuntimeException(Colors.RED + "Error al borrar Libro: " + e.getMessage() + Colors.RESET);
         }
     }
 }

@@ -1,24 +1,56 @@
-// package com.femteca.repository;
+package com.femteca.repository;
 
-// import java.sql.Connection;
-// import java.sql.PreparedStatement;
-// import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-// import com.femteca.config.DBManager;
-// import com.femteca.model.Genre;
+import com.femteca.config.DBManager;
+import com.femteca.model.Genre;
 
-// public class GenreRepositoryImpl implements GenreRepository {
+public class GenreRepositoryImpl implements GenreRepository {
 
-//     @Override
-//     public void updateGenre(Genre genre) {
+    @Override
+    public Genre findByName(String name) {
+        String sql = "SELECT id, name FROM genre WHERE name = ?";
 
-//         String sql = "UPDATE Genre SET Genre = '?' WHERE Genre = '?'";
-//         try (Connection connection = DBManager.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
-//             st.setString(1, genre.getName());
-//             st.executeUpdate();
-            
-//         } catch (SQLException e) {
-//             throw new RuntimeException("Error al actualizar libro" + e.getMessage());
-//         }
-//     }
-// }
+        try (Connection connection = DBManager.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, name);
+            ResultSet result = st.executeQuery();
+
+            if (result.next()) {
+                Genre genre = new Genre();
+                genre.setId(result.getInt("id"));
+                genre.setGenre(result.getString("name"));
+                return genre;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al buscar género" + e.getMessage());
+        }
+    }
+
+    @Override
+    public Genre saveGenre(Genre genre){
+        String sql = "INSERT INTO genre (name) VALUES (?)";
+
+        try (Connection connection = DBManager.getConnection();
+                PreparedStatement st = connection.prepareStatement(
+                    sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+        st.setString(1, genre.getGenre());
+        st.executeUpdate();
+
+
+        ResultSet result= st.getGeneratedKeys();
+        if (result.next()){
+            genre.setId(result.getInt(1));
+        }
+        return genre;
+    } catch (SQLException e) {
+        throw new RuntimeException("Error al crear género " + e.getMessage());
+    }
+}
+
+}
