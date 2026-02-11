@@ -1,5 +1,6 @@
 package com.femteca.controller;
 
+
 import com.femteca.model.Book;
 import com.femteca.model.Genre;
 import com.femteca.repository.BookRepository;
@@ -21,7 +22,7 @@ public class BookController {
 
     public Book readBookById(int id) {
         return bookRepository.readBookById(id);
-    }
+  }
 
     public void updateBook(Book book) {
         bookRepository.updateBook(book);

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 import com.femteca.config.DBManager;
+
 import com.femteca.model.Book;
 import com.femteca.model.Colors;
 
@@ -13,20 +14,20 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public void createBook(Book book) {
+        
+        String sql = "INSERT INTO books (title, description, code, author_id, genre_id) VALUES (?, ?, ?, ?,?)";
 
         if (book.getGenre() == null) {
             throw new RuntimeException("El libro debe tener un género asignado");
         }
 
-        String sql = "INSERT INTO books (title, description, code, genre_id) VALUES (?, ?, ?, ?)";
-
         try (Connection connection = DBManager.getConnection();
                 PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, book.getTitle());
-            // st.setString(2, book.getAuthor());
             st.setString(2, book.getDescription());
             st.setString(3, book.getCode());
-            st.setInt(4, book.getGenre().getId());
+            st.setInt(4, book.getAuthor().getId());
+            st.setInt(5, book.getGenre().getId());
             st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(Colors.RED + "Error al crear Libro" + e.getMessage() + Colors.RESET);
@@ -60,6 +61,7 @@ public class BookRepositoryImpl implements BookRepository {
         }
     }
 
+
     @Override
     public void updateBook(Book book) {
 
@@ -73,6 +75,7 @@ public class BookRepositoryImpl implements BookRepository {
             st.setString(2, book.getDescription());
             st.setString(3, book.getCode());
             st.setInt(4, book.getId());
+
             st.executeUpdate();
 
         } catch (SQLException e) {
@@ -95,4 +98,5 @@ public class BookRepositoryImpl implements BookRepository {
             throw new RuntimeException(Colors.RED + "Error al borrar Libro: " + e.getMessage() + Colors.RESET);
         }
     }
-}
+
+    }
