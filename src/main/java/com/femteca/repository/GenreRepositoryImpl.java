@@ -35,7 +35,7 @@ public class GenreRepositoryImpl implements GenreRepository {
     }
 
     public Genre findByName(String name) {
-        String sql = "SELECT id, name FROM genre WHERE name = ?";
+        String sql = "SELECT id, name FROM genres WHERE name = ?";
 
         try (Connection connection = DBManager.getConnection();
                 PreparedStatement st = connection.prepareStatement(sql)) {
