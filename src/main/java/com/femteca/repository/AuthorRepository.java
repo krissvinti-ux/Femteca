@@ -4,6 +4,11 @@ import com.femteca.model.Author;
 
 public interface AuthorRepository {
 
-    Author readAuthor(int id);   
+    Author readAuthor(int id);
+
+    Author createAuthor(Author author);
+
+    Author findByNameAuthor(String name);
+
 }
 

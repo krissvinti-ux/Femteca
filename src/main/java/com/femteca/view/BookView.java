@@ -6,9 +6,16 @@ import java.util.Scanner;
 import com.femteca.controller.BookController;
 import com.femteca.model.Author;
 import com.femteca.model.Book;
+import com.femteca.model.Genre;
 import com.femteca.model.Colors;
 
 public class BookView {
+
+    private final BookController bookController;
+
+    public BookView(BookController bookController) {
+        this.bookController = bookController;
+    }
 
 public void deco () {
 
@@ -58,13 +65,21 @@ public void menu (Scanner scanner) {
             switch (readChoice) {
                 case 1 : 
                     showAllBooks();
+                    System.out.print(Colors.BOLD + "\nPressiona el ENTER para volver al menu " + Colors.RESET);
+                    scanner.nextLine();
+                    menu(scanner);
                 case 2:
                     readBookById(scanner);
                 case 3:
                     readBookByAuthor(scanner);
-                    break;
+                    System.out.print(Colors.BOLD + "\nPressiona el ENTER para volver al menu " + Colors.RESET);
+                    scanner.nextLine();
+                    menu(scanner);
                 case 4:
-                    break;
+                    readGenreById(scanner);
+                    System.out.print(Colors.BOLD + "\nPressiona el ENTER para volver al menu " + Colors.RESET);
+                    scanner.nextLine();
+                    menu(scanner);
                 case 5:
                     menu(scanner);
                 default:
@@ -87,68 +102,84 @@ public void menu (Scanner scanner) {
             menu(scanner);
 
         case 5:
-            break;
+            menu(scanner);
 
         default:
             System.out.println(Colors.RED + "seleccion invalida, por favor ingresa un numero entre 1 y 5");
             menu(scanner);
 
+        }
     }
-
-}
-
-
-    private final BookController bookController;
-
-    public BookView(BookController bookController) {
-        this.bookController = bookController;
-    }
-
-
 
     public void createBook(Scanner scanner) {
         System.out.println("** Nuevo libro **");
-        System.out.println("Ingrese título del libro: ");
+        System.out.println("\n--------------------");
+        System.out.println("\nIngrese título del libro: ");
         String title = scanner.nextLine();
         System.out.println("Ingrese Nombre y apellido del autor: ");
         String authorName = scanner.nextLine();
+        Author author = bookController.findByNameAuthor(authorName);
+            if (author == null) {
+            author = new Author(authorName); 
+            author.setName(authorName);
+            author = bookController.createAuthor(author);
+            System.out.println(Colors.GREEN + "Autor creado con éxito!" + Colors.RESET);
+        }
+        
         System.out.println("Ingrese descripción del libro (máx. 200 caractéres): ");
         String description = scanner.nextLine();
+
         System.out.println("Ingrese el código ISBN (xxx-x-xxxxx-xxx-x): ");
         String code = scanner.nextLine();
-        // System.out.println("Ingrese género del libro: ");
-        // String genre = scanner.nextLine();
 
-        Author author = new Author(authorName);
-        Book book = new Book(title, description, code, author);
+        System.out.println("Ingrese género del libro: ");
+        String genreName = scanner.nextLine();
+        Genre genre = bookController.getGenreByName(genreName);
+        if (genre == null) {
+            genre = new Genre(genreName);
+            genre.setname(genreName);
+            genre = bookController.createGenre(genre);
+            System.out.println(Colors.GREEN + "Género creado con éxito!" + Colors.RESET);
+        }
 
+        Book book = new Book(title, description, code);
+        book.setGenre(genre);
+        book.setAuthor(author);
         bookController.createBook(book);
-        System.out.println(Colors.GREEN + "Libro creado con éxito!" + Colors.RESET);
+        System.out.println("\n--------------------");
+        System.out.println(Colors.GREEN + "\nLibro creado con éxito!" + Colors.RESET);
+        System.out.println("\n--------------------");
         menu(scanner);
     }
 
-    public void readBookById(Scanner scanner) {
-        System.out.print("Ingresa el ID del libro: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+    public void readGenreById(Scanner scanner) {
+        System.out.print("¿Qué género quieres leer?: ");
+        String genreName = scanner.nextLine();
+        List<Book> books = bookController.readBooksByGenre(genreName);
 
-        Book book = bookController.readBookById(id);
-
-        if (book == null) {
-            System.out.println(Colors.RED + "No existe un libro con ID: " + id  + Colors.RESET);
-            menu(scanner);
+        if (books.isEmpty()) {
+            System.out.println("No ingresaste un género.");
+            return;
         }
 
-        System.out.println("Libro encontrado");
-        System.out.println(Colors.UNDERLINE + "\nID: " +Colors.RESET+ book.getId());
-        System.out.println(Colors.UNDERLINE + "Título: " +Colors.RESET+ book.getTitle());
-        if (book.getAuthor() != null) {
-            System.out.println(Colors.UNDERLINE + "Autor: " + book.getAuthor().getName());
-        } else {
-            System.out.println("Autor desconocido");
+        System.out.println("Libros encontrados para el género: " + genreName);
+
+        for (Book book : books) {
+            System.out.println("ID: " + book.getId());
+            System.out.println("Título: " + book.getTitle());
+
+            if (book.getGenre() != null) {
+                System.out.println("Género: " + book.getGenre().getname());
+            }
+            if (book.getAuthor() != null) {
+                System.out.println("Author " + book.getAuthor().getName());
+            }
+
+            System.out.println("Descripción: " + book.getDescription());
+            System.out.println("Código: " + book.getCode());
+            System.out.println("--------------------------------------------------");
         }
-        System.out.println(Colors.UNDERLINE + "Descripción: "+Colors.RESET + book.getDescription());
-        System.out.println(Colors.UNDERLINE + "Código: " + Colors.RESET + book.getCode());
+
 
         menu(scanner);
     }
@@ -166,16 +197,16 @@ public void menu (Scanner scanner) {
                 
             }
             for (Book book : books) {
-                System.out.println(Colors.UNDERLINE + "Título: " + Colors.RESET + book.getTitle());
-                System.out.println(Colors.UNDERLINE + "Autor: " + Colors.RESET + book.getAuthor().getName());
-                System.out.println(Colors.UNDERLINE + "Descripción: " + Colors.RESET + book.getDescription());
-                System.out.println(Colors.UNDERLINE + "Código: "  + Colors.RESET+ book.getCode());
+                System.out.println("Título: " +  book.getTitle());
+                System.out.println("Autor: " +  book.getAuthor().getName());
+                // System.out.println("Genero: " + book.getGenre().getname());
+                System.out.println("Descripción: " +  book.getDescription());
+                System.out.println("Código: "  + book.getCode());
+                System.out.println("\n--------------------");
 }
         }
 
     public void updateBook(Scanner scanner) {
-        System.out.println("Aqui tienes la lista de libros disponibles : ");
-        showAllBooks();
         System.out.print("\nIngresa el numero del libro que quieres actualizar : ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -189,22 +220,32 @@ public void menu (Scanner scanner) {
         String code = scanner.nextLine();
 
         Author newAuthor = new Author(author);
-        Book book = new Book(title, description, code, newAuthor);
+        System.out.println(id);
+        Book book = bookController.readBookById(id);
+        System.out.println(book.getId());
+        
+        book.setTitle(title);
+        book.setCode(code);
+        book.setDescription(description);
+        book.setAuthor(newAuthor);
 
         bookController.updateBook(book);
+        System.out.println("\n--------------------");
         System.out.println(Colors.GREEN + "libro actualizado correctamente" + Colors.RESET);
+        System.out.println("\n--------------------");
         menu(scanner);
     }
 
     public void deleteBookView(Scanner scanner) {
-        System.out.println("Aqui tienes la lista de libros disponibles : ");
-        showAllBooks();
+
         System.out.print("Introduce el numero del libro a eliminar: ");
         int id = scanner.nextInt();
         scanner.nextLine();
 
         bookController.deleteBook(id);
+        System.out.println("\n--------------------");
         System.out.println(Colors.GREEN + "Libro eliminado correctamente." + Colors.RESET);
+        System.out.println("\n--------------------");
         menu(scanner);
     }
 
@@ -217,7 +258,7 @@ public void menu (Scanner scanner) {
         return;
     }
 
-    System.out.println("📚 Lista de libros:");
+    System.out.println("Lista de libros:");
     System.out.println("------------------");
 
     for (Book book : books) {
@@ -227,11 +268,45 @@ public void menu (Scanner scanner) {
         if (book.getAuthor() != null) {
             System.out.println("Autor: " + book.getAuthor().getName());
         } else {
-            System.out.println("Autor: Desconocido");
+            System.out.println("Autor desconocido");
+        }
+        if (book.getGenre() != null) {
+            System.out.println("Genre: " + book.getGenre().getname());
+        } else {
+            System.out.println("Genre desconocido");
         }
         System.out.println("Código: " + book.getCode());
         System.out.println("------------------");
     }
 }
 
+public void readBookById(Scanner scanner) {
+
+        // System.out.println("Libro encontrado");
+
+        // System.out.println(Colors.UNDERLINE + "\nID: " +Colors.RESET+ book.getId());
+        // System.out.println(Colors.UNDERLINE + "Título: " +Colors.RESET+ book.getTitle());
+        // if (book.getAuthor() != null) {
+        //     System.out.println(Colors.UNDERLINE + "Autor: " + book.getAuthor().getName());
+        // } else {
+        //     System.out.println("Autor desconocido");
+        // }
+        // System.out.println(Colors.UNDERLINE + "Descripción: "+Colors.RESET + book.getDescription());
+        // System.out.println(Colors.UNDERLINE + "Código: " + Colors.RESET + book.getCode());
+
+        // System.out.println("--------------------------------------------------");
+
+        /*
+         * Book book = bookController.readBookById(id);
+         * 
+         * if (book.getGenre() == null) {
+         * System.out.println("\n--------------------");
+         * System.out.println(Colors.RED + "No existe un libro con ID: " + id +
+         * Colors.RESET);
+         * System.out.println("\n--------------------");
+         * menu(scanner);
+         * }
+         */
 }
+}
+

@@ -7,42 +7,37 @@ public class Book {
     private String description;
     private String code;
     private Author author;
+    private Genre genre;
 
-    public Book (String title, String description, String code, Author author) {
+    public Book(String title, String description, String code, Author author, Genre genre) {
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.genre = genre;
+        this.author = author;
+    }
+
+    public Book(String title, String description, String code, Author author) {
         this.title = title;
         this.description = description;
         this.code = code;
         this.author = author;
     }
-    public Book () {
-    }
 
-    public void setTitle(String title) {
+    public Book(String title, String description, String code, Genre genre) {
         this.title = title;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public int getId() {
-        return id;
-    }
-    
-
-    public void setDescription(String description) {
         this.description = description;
-    }
-    public String getDescription() {
-        return description;
+        this.code = code;
+        this.genre = genre;
     }
 
-    public void setCode(String code) {
+    public Book(String title, String description, String code) {
+        this.title = title;
+        this.description = description;
         this.code = code;
     }
-    public String getCode() {
-        return code;
+
+    public Book() {
     }
 
     public void setAuthor(Author author) {
@@ -52,6 +47,45 @@ public class Book {
     public Author getAuthor() {
         return author;
     }
-    
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
 
 }
