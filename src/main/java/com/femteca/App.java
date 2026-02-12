@@ -2,7 +2,9 @@ package com.femteca;
 
 import java.util.Scanner;
 
+import com.femteca.controller.AuthorController;
 import com.femteca.controller.BookController;
+import com.femteca.controller.GenreController;
 import com.femteca.repository.AuthorRepository;
 import com.femteca.repository.AuthorRepositoryImpl;
 import com.femteca.repository.BookRepository;
@@ -20,10 +22,12 @@ public class App
             
             AuthorRepository authorRepo = new AuthorRepositoryImpl();
             GenreRepository genreRepo = new GenreRepositoryImpl();
-            BookRepository bookrepo = new BookRepositoryImpl(genreRepo, authorRepo);
+            BookRepository bookRepo = new BookRepositoryImpl(genreRepo, authorRepo);
 
-            BookController bookController = new BookController(bookrepo, genreRepo, authorRepo);
-            BookView bookView = new BookView(bookController);
+            BookController bookController = new BookController(bookRepo);
+            GenreController genreController = new GenreController(genreRepo);
+            AuthorController authorController = new AuthorController(authorRepo);
+            BookView bookView = new BookView(bookController, authorController, genreController);
             
 
             bookView.deco();

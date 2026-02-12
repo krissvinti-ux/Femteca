@@ -3,7 +3,9 @@ package com.femteca.view;
 import java.util.List;
 import java.util.Scanner;
 
+import com.femteca.controller.AuthorController;
 import com.femteca.controller.BookController;
+import com.femteca.controller.GenreController;
 import com.femteca.model.Author;
 import com.femteca.model.Book;
 import com.femteca.model.Genre;
@@ -12,9 +14,13 @@ import com.femteca.model.Colors;
 public class BookView {
 
     private final BookController bookController;
+    private final AuthorController authorController;
+    private final GenreController genreController;
 
-    public BookView(BookController bookController) {
+    public BookView(BookController bookController, AuthorController authorController, GenreController genreController) {
         this.bookController = bookController;
+        this.authorController = authorController;
+        this.genreController = genreController;
     }
 
 public void deco () {
@@ -127,11 +133,11 @@ public void menu (Scanner scanner) {
         String title = scanner.nextLine();
         System.out.println("Ingrese Nombre y apellido del autor: ");
         String authorName = scanner.nextLine();
-        Author author = bookController.findByNameAuthor(authorName);
+        Author author = authorController.findByNameAuthor(authorName);
             if (author == null) {
             author = new Author(authorName); 
             author.setName(authorName);
-            author = bookController.createAuthor(author);
+            author = authorController.createAuthor(author);
             System.out.println(Colors.GREEN + "Autor creado con éxito!" + Colors.RESET);
         }
         
@@ -143,11 +149,11 @@ public void menu (Scanner scanner) {
 
         System.out.println("Ingrese género del libro: ");
         String genreName = scanner.nextLine();
-        Genre genre = bookController.getGenreByName(genreName);
+        Genre genre = genreController.getGenreByName(genreName);
         if (genre == null) {
             genre = new Genre(genreName);
             genre.setname(genreName);
-            genre = bookController.createGenre(genre);
+            genre = genreController.createGenre(genre);
             System.out.println(Colors.GREEN + "Género creado con éxito!" + Colors.RESET);
         }
 
