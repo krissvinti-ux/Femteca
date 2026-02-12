@@ -1,14 +1,23 @@
 package com.femteca.repository;
 
+import java.util.List;
 import com.femteca.model.Book;
 
 public interface BookRepository {
 
-     void createBook(Book book);
+    void createBook(Book book);
 
-     Book readBookById(int id);
+    Book readBookById(int id);
     
+    List<Book> readBookByGenre(String genreName);
+
     void updateBook(Book book);
 
     void deleteBook(int id);
-    }
+
+    List<Book> readBookByAuthor(String authorName);
+    
+    List<Book> findAll();
+
+    Book readBookByTitle(String title);
+}
