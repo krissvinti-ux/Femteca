@@ -2,23 +2,14 @@ package com.femteca.controller;
 
 import java.util.List;
 import com.femteca.model.Book;
-import com.femteca.model.Genre;
-import com.femteca.repository.AuthorRepository;
 import com.femteca.repository.BookRepository;
-import com.femteca.repository.GenreRepository;
-import com.femteca.model.Author;;
 
 public class BookController {
 
     private final BookRepository bookRepository;
-    private final GenreRepository genreRepository;
-    private final AuthorRepository authorRepository;
 
-    public BookController(BookRepository bookRepository, GenreRepository genreRepository,
-            AuthorRepository authorRepository) {
+    public BookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-        this.genreRepository = genreRepository;
-        this.authorRepository = authorRepository;
     }
 
     public void createBook(Book book) {
@@ -52,20 +43,4 @@ public class BookController {
         return bookRepository.readBookByGenre(genreName);
     }
 
-    public Genre createGenre(Genre genre) {
-        return genreRepository.saveGenre(genre);
-    }
-
-    public Genre getGenreByName(String name) {
-        return genreRepository.findByName(name);
-    }
-
-    public Author createAuthor(Author author) {
-        return authorRepository.createAuthor( author);
-
-    }
-
-    public Author findByNameAuthor(String name) {
-        return authorRepository.findByNameAuthor(name);
-    }
 }

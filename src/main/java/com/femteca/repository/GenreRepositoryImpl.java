@@ -14,9 +14,8 @@ public class GenreRepositoryImpl implements GenreRepository {
     public Genre readGenreById(int id) {
         String sql = "SELECT id, name FROM genres WHERE id = ?";
 
-        try (Connection connection = DBManager.getConnection();
+       try (Connection connection = DBManager.getConnection();
                 PreparedStatement st = connection.prepareStatement(sql)) {
-
             st.setInt(1, id);
 
             try (ResultSet rs = st.executeQuery()) {
