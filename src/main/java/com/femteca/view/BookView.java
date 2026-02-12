@@ -189,7 +189,6 @@ public void menu (Scanner scanner) {
             System.out.println("--------------------------------------------------");
         }
 
-
         menu(scanner);
     }
 
@@ -208,7 +207,7 @@ public void menu (Scanner scanner) {
             for (Book book : books) {
                 System.out.println("Título: " +  book.getTitle());
                 System.out.println("Autor: " +  book.getAuthor().getName());
-                // System.out.println("Genero: " + book.getGenre().getname());
+                System.out.println("Genero: " + book.getGenre().getname());
                 System.out.println("Descripción: " +  book.getDescription());
                 System.out.println("Código: "  + book.getCode());
                 System.out.println("\n--------------------");
