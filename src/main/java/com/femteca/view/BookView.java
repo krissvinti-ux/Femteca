@@ -220,22 +220,22 @@ public void menu (Scanner scanner) {
         scanner.nextLine();
         System.out.print("Ingresa el nuevo titulo:  ");
         String title = scanner.nextLine();
-        System.out.print("Ingresa el nuevo author:  ");
-        String author = scanner.nextLine();
+        // System.out.print("Ingresa el nuevo author:  ");
+        // String author = scanner.nextLine();
         System.out.print("Ingresa la nueva descripcion(or press ENTER):  ");
         String description = scanner.nextLine();
         System.out.print("Ingresa el nuevo codigo:  ");
         String code = scanner.nextLine();
 
-        Author newAuthor = new Author(author);
-        System.out.println(id);
+        // Author newAuthor = new Author(author);
+        // System.out.println(id);
         Book book = bookController.readBookById(id);
         System.out.println(book.getId());
         
         book.setTitle(title);
         book.setCode(code);
         book.setDescription(description);
-        book.setAuthor(newAuthor);
+        // book.setAuthor(newAuthor);
 
         bookController.updateBook(book);
         System.out.println("\n--------------------");

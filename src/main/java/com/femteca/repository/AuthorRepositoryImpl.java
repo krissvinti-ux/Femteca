@@ -25,7 +25,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             if (rs.next()) {
                 Author author = new Author();
                 author.setId(rs.getInt("id"));
-                author.setName(rs.getString("author"));
+                author.setName(rs.getString("name"));
                 return author;
             }
 

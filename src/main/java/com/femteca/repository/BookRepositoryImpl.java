@@ -250,7 +250,7 @@ public class BookRepositoryImpl implements BookRepository {
             while (rs.next()) {
 
                 Author author = null;
-                // Genre genre = null;
+                Genre genre = null;
 
                 if (rs.getObject("author_id") != null) {
                     author = new Author();
@@ -303,8 +303,8 @@ public class BookRepositoryImpl implements BookRepository {
                         book.setTitle(rs.getString("title"));
                         book.setDescription(rs.getString("description"));
                         book.setCode(rs.getString("code"));
-                        book.setGenre(null);
-                        book.setAuthor(null);
+                        book.setGenre(genre);
+                        book.setAuthor(author);
 
                     return book;
                 }
