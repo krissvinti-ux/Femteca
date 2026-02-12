@@ -266,4 +266,38 @@ public class BookRepositoryImpl implements BookRepository {
 
         return books;
     }
+
+        @Override
+    public Book readBookByTitle(String title) {
+        String sql = "SELECT id, title, description, code, genre_id, author_id FROM books WHERE title = ?";
+
+        try (Connection connection = DBManager.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql)) {
+
+            st.setString(1, title);
+
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    int genre_id = rs.getInt("genre_id");
+                    Genre genre = genreRepository.readGenreById(genre_id);
+
+                    int authorId = rs.getInt("author_id");
+                    Author author = authorRepository.readAuthor(authorId);
+
+                    Book book = new Book();
+                        book.setId(rs.getInt("id"));
+                        book.setTitle(rs.getString("title"));
+                        book.setDescription(rs.getString("description"));
+                        book.setCode(rs.getString("code"));
+                        book.setGenre(null);
+                        book.setAuthor(null);
+
+                    return book;
+                }
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(Colors.RED + "Error al leer libro: " + e.getMessage() + Colors.RESET);
+        }
+    }
 }

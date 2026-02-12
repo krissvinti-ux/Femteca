@@ -18,4 +18,6 @@ public interface BookRepository {
     List<Book> readBookByAuthor(String authorName);
     
     List<Book> findAll();
+
+    Book readBookByTitle(String title);
 }

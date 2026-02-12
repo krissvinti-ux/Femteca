@@ -29,6 +29,10 @@ public class BookController {
         return bookRepository.readBookById(id);
     }
 
+    public Book readBookByTitle(String title) {
+        return bookRepository.readBookByTitle(title);
+    }
+
     public void updateBook(Book book) {
         bookRepository.updateBook(book);
     }
