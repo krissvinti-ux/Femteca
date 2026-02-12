@@ -12,7 +12,7 @@ public class GenreRepositoryImpl implements GenreRepository {
 
     @Override
     public Genre readGenreById(int id) {
-        String sql = "SELECT id, name, FROM genre WHERE id = ?";
+        String sql = "SELECT id, name FROM genres WHERE id = ?";
 
         try (Connection connection = DBManager.getConnection();
                 PreparedStatement st = connection.prepareStatement(sql)) {
@@ -56,7 +56,7 @@ public class GenreRepositoryImpl implements GenreRepository {
 
     @Override
     public Genre saveGenre(Genre genre){
-        String sql = "INSERT INTO genre (name) VALUES (?)";
+        String sql = "INSERT INTO genres (name) VALUES (?)";
 
         try (Connection connection = DBManager.getConnection();
                 PreparedStatement st = connection.prepareStatement(

@@ -1,6 +1,5 @@
 package com.femteca.model;
 
-
 public class Book {
 
     private int id;
@@ -8,50 +7,47 @@ public class Book {
     private String description;
     private String code;
     private Author author;
-
     private Genre genre;
 
-    public Book(String title, String description, String code, Author author,Genre genre ) {
+    public Book(String title, String description, String code, Author author, Genre genre) {
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.genre = genre;
+        this.author = author;
+    }
+
+    public Book(String title, String description, String code, Author author) {
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.author = author;
+    }
+
+    public Book(String title, String description, String code, Genre genre) {
         this.title = title;
         this.description = description;
         this.code = code;
         this.genre = genre;
     }
 
-
-    public Book (String title, String description, String code, Author author) {
-        this.title = title;
-        this.description = description;
-        this.code = code;
-        this.author= author;
-     
-    }
-    
     public Book(String title, String description, String code) {
         this.title = title;
         this.description = description;
-        this.code = code;  
-
-    }
-
-    public Book(String title, String description, String code,Genre genre ) {
-        this.title = title;
-        this.description = description;
         this.code = code;
-        this.genre = genre;
     }
+
     public Book() {
     }
 
-     public void setAuthor(Author author) {
-    this.author = author;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     public Author getAuthor() {
         return author;
     }
 
-    
     public void setTitle(String title) {
         this.title = title;
     }
@@ -88,11 +84,8 @@ public class Book {
         this.genre = genre;
     }
 
-
     public Genre getGenre() {
         return genre;
     }
 
-
- 
 }
