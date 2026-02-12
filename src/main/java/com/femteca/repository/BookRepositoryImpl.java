@@ -90,11 +90,14 @@ public class BookRepositoryImpl implements BookRepository {
                                 b.title,
                                 b.description,
                                 b.code,
-                                a.id AS genre_id,
-                                a.name AS genre_name
+                                g.id AS genre_id,
+                                g.name AS genre_name,
+                                a.id AS author_id,
+                                a.name AS author_name
                             FROM books b
-                            JOIN genres a ON b.genre_id = a.id
-                            WHERE a.name ILIKE ?
+                            JOIN genres g ON b.genre_id = g.id
+                            JOIN authors a ON b.author_id = a.id
+                            WHERE g.name ILIKE ?
                         """;
 
         try (Connection connection = DBManager.getConnection();
@@ -109,11 +112,15 @@ public class BookRepositoryImpl implements BookRepository {
                 genre.setId(rs.getInt("genre_id"));
                 genre.setname(rs.getString("genre_name"));
 
+                Author author = new Author();
+                author.setId(rs.getInt("author_id"));
+                author.setName(rs.getString("author_name"));
+
                 Book book = new Book(
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getString("code"),
-                        genre);
+                        author, genre);
                 book.setId(rs.getInt("book_id"));
 
                 books.add(book);
@@ -138,9 +145,12 @@ public class BookRepositoryImpl implements BookRepository {
                         b.description,
                         b.code,
                         a.id AS author_id,
-                        a.name AS author_name
+                        a.name AS author_name,
+                        g.id AS genre_id,
+                        g.name AS genre_name
                     FROM books b
                     JOIN authors a ON b.author_id = a.id
+                    JOIN genres g ON b.genre_id = g.id
                     WHERE a.name ILIKE ?
                 """;
 
@@ -156,11 +166,15 @@ public class BookRepositoryImpl implements BookRepository {
                 author.setId(rs.getInt("author_id"));
                 author.setName(rs.getString("author_name"));
 
+                Genre genre = new Genre();
+                genre.setId(rs.getInt("genre_id"));
+                genre.setname(rs.getString("genre_name"));
+
                 Book book = new Book(
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getString("code"),
-                        author);
+                        author, genre);
                 book.setId(rs.getInt("book_id"));
 
                 books.add(book);
