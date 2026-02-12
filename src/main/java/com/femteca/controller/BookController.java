@@ -37,6 +37,13 @@ public class BookController {
         bookRepository.deleteBook(id);
     }
 
+    public List<Book> readBookByAuthor(String authorName) {
+        return bookRepository.readBookByAuthor(authorName);}
+        
+    public List<Book> readAllBooks() {
+        return bookRepository.findAll();
+    }
+
     public List<Book> readBooksByGenre(String genreName) {
         return bookRepository.readBookByGenre(genreName);
     }
@@ -49,8 +56,12 @@ public class BookController {
         return genreRepository.findByName(name);
     }
 
-    public void createAuthor(Author author) {
-        authorRepository.createAuthor( author);
+    public Author createAuthor(Author author) {
+        return authorRepository.createAuthor( author);
 
+    }
+
+    public Author findByNameAuthor(String name) {
+        return authorRepository.findByNameAuthor(name);
     }
 }

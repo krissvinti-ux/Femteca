@@ -9,12 +9,13 @@ public interface BookRepository {
 
     Book readBookById(int id);
     
-
     List<Book> readBookByGenre(String genreName);
 
     void updateBook(Book book);
 
     void deleteBook(int id);
 
+    List<Book> readBookByAuthor(String authorName);
     
+    List<Book> findAll();
 }
