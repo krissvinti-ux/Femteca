@@ -1,7 +1,7 @@
-# FEMTECA 📚✨ — Java 21 + PostgreSQL (MVC + Repository) | Terminal CRUD
+# FEMTECA 📚 — Java 21 + PostgreSQL (MVC + Repository) | Terminal CRUD
 
 **Femteca** es una aplicación de consola desarrollada en **Java 21** que permite a una biblioteca de barrio modernizar su inventario.  
-La administradora puede **crear, leer, actualizar, eliminar** libros y realizar **búsquedas por título, autor y género**, con persistencia en **PostgreSQL**.
+La administradora puede **crear, consultar, actualizar y eliminar** libros, además de realizar **búsquedas por título, autor y género**, con persistencia en **PostgreSQL**.
 
 ---
 
@@ -13,11 +13,11 @@ La administradora puede **crear, leer, actualizar, eliminar** libros y realizar 
 
 ## ✅ Requisitos funcionales
 
-- Ver una lista de **todos los libros** en la base de datos.
+- Visualizar una lista con **todos los libros** almacenados en la base de datos.
 - **Añadir** un libro.
-- **Editar** un libro.
+- **Editar** un libro existente.
 - **Eliminar** un libro.
-- Buscar un libro por **título**.
+- Buscar libros por **título**.
 - Buscar libros por **autor**.
 - Buscar libros por **género literario**.
 
@@ -25,27 +25,27 @@ La administradora puede **crear, leer, actualizar, eliminar** libros y realizar 
 
 ## 🧩 Requisitos no funcionales
 
-- Un libro debe tener mínimo:
+- Cada libro debe incluir, como mínimo:
   - **Título**
   - **Autor**
-  - **Descripción** (máx. 200 caracteres)
+  - **Descripción** (máximo 200 caracteres)
   - **ISBN**
   - **Género literario**
 - En el listado general se muestran todos los campos **excepto la descripción**.
-- En la búsqueda por título o autor se muestran **todos los campos**.
+- En las búsquedas por título o autor se muestran **todos los campos**.
 - En la búsqueda por género se muestran todos los campos **excepto la descripción**.
 - Base de datos **normalizada**.
-- Arquitectura **MVC**.
-- Patrón **Repository** para acceso a datos.
+- Implementación basada en arquitectura **MVC**.
+- Uso del patrón **Repository** para el acceso a datos.
 
 ---
 
 ## 💻 Tecnologías
 
-- Java 21
-- PostgreSQL
-- Maven
-- JDBC
+- **Java 21**
+- **PostgreSQL**
+- **Maven**
+- **JDBC**
 
 ---
 
@@ -57,22 +57,22 @@ La administradora puede **crear, leer, actualizar, eliminar** libros y realizar 
 
 ---
 
-## 🧱 Arquitectura del proyecto (MVC + Repository)
+## 🧱 Arquitectura (MVC + Repository)
 
-- **View** (`com.femteca.view`)
-  - Interfaz por terminal: menús, inputs y outputs.
-- **Controller** (`com.femteca.controller`)
-  - Coordina la lógica de flujo entre Vista y Repositorios.
-- **Model** (`com.femteca.model`)
-  - Entidades: `Book`, `Author`, `Genre`.
-- **Repository** (`com.femteca.repository`)
-  - Interfaces + implementaciones JDBC para PostgreSQL.
-- **Config** (`com.femteca.config`)
-  - Conexión a BD (ej. `DBManager`) leyendo variables desde `.env`.
+- **View** (`com.femteca.view`)  
+  Interfaz por terminal: menús, entrada de datos y presentación de resultados.
+- **Controller** (`com.femteca.controller`)  
+  Orquesta el flujo entre la vista y la capa de persistencia.
+- **Model** (`com.femteca.model`)  
+  Entidades del dominio: `Book`, `Author`, `Genre`.
+- **Repository** (`com.femteca.repository`)  
+  Interfaces e implementaciones JDBC para consultas y operaciones sobre PostgreSQL.
+- **Config** (`com.femteca.config`)  
+  Configuración de conexión a base de datos (por ejemplo, `DBManager`) utilizando variables desde `.env`.
 
 ---
 
-## 🗂 Estructura de carpetas (real)
+## 🗂 Estructura del proyecto
 
 ```txt
 src/
@@ -101,46 +101,37 @@ src/
             ├─ view/
             │  └─ BookView.java
             └─ App.java
+⚙️ Configuración
+Variables de entorno (.env)
+Este proyecto utiliza dotenv-java para cargar las credenciales de la base de datos desde un archivo .env.
 
-## ⚙️ Configuración
+Crea un archivo llamado .env en la raíz del proyecto.
 
-### Variables de entorno (.env)
-Este proyecto utiliza `dotenv-java` para cargar las credenciales de la base de datos desde un archivo `.env`.
+Añade tus datos de conexión:
 
-1. Crea un archivo llamado `.env` en la **raíz del proyecto**.
-2. Añade tus datos de conexión:
-
-```env
 DB_URL=jdbc:postgresql://localhost:5432/femteca
 DB_USER=postgres
 DB_PASSWORD=tu_password
-
 🗄 Base de datos (PostgreSQL)
-
 Crea una base de datos llamada femteca.
 
-Crea las tablas necesarias para books, authors y genres (según el modelo del proyecto).
+Crea las tablas necesarias para books, authors y genres según el modelo del proyecto.
 
-(Opcional) Inserta datos iniciales para poder probar el CRUD desde el primer momento.
+(Opcional) Inserta datos iniciales para probar el CRUD desde el primer momento.
 
-▶️ Cómo ejecutar el proyecto
+▶️ Ejecución
 Opción A — VS Code
-
-Abre src/main/java/com/femteca/App.java
+Abre src/main/java/com/femteca/App.java.
 
 Ejecuta el método main() con Run.
 
 Opción B — Maven
-
-Compila el proyecto con Maven y ejecútalo desde terminal (recomendado si trabajas fuera del IDE).
+Compila el proyecto con Maven:
 
 mvn clean compile
-
-
-Nota: si deseas ejecutar el main directamente con Maven, puedes configurar un plugin de ejecución en el pom.xml.
+Si deseas ejecutar el main directamente con Maven, puedes configurar un plugin de ejecución en el pom.xml (por ejemplo, exec-maven-plugin).
 
 👥 Equipo
-
 Product Owner: Maria-Eva Martin
 
 Scrum Master: Manon Godfroy
