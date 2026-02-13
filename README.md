@@ -1,0 +1,139 @@
+# FEMTECA 📚 — Java 21 + PostgreSQL (MVC + Repository) | Terminal CRUD
+
+**Femteca** es una aplicación de consola desarrollada en **Java 21** que permite a una biblioteca de barrio modernizar su inventario.  
+La administradora puede **crear, consultar, actualizar y eliminar** libros, además de realizar **búsquedas por título, autor y género**, con persistencia en **PostgreSQL**.
+
+---
+
+## 🗃 Contexto del proyecto
+
+> La biblioteca de nuestro barrio se quiere modernizar y necesita tener todos sus libros organizados en un programa. Tener un inventario actualizado le facilitará la gestión. La administradora necesita añadir libros, actualizarlos, borrarlos, verlos y buscarlos por ciertos atributos.
+
+---
+
+## ✅ Requisitos funcionales
+
+- Visualizar una lista con **todos los libros** almacenados en la base de datos.
+- **Añadir** un libro.
+- **Editar** un libro existente.
+- **Eliminar** un libro.
+- Buscar libros por **título**.
+- Buscar libros por **autor**.
+- Buscar libros por **género literario**.
+
+---
+
+## 🧩 Requisitos no funcionales
+
+- Cada libro debe incluir, como mínimo:
+  - **Título**
+  - **Autor**
+  - **Descripción** (máximo 200 caracteres)
+  - **ISBN**
+  - **Género literario**
+- En el listado general se muestran todos los campos **excepto la descripción**.
+- En las búsquedas por título o autor se muestran **todos los campos**.
+- En la búsqueda por género se muestran todos los campos **excepto la descripción**.
+- Base de datos **normalizada**.
+- Implementación basada en arquitectura **MVC**.
+- Uso del patrón **Repository** para el acceso a datos.
+
+---
+
+## 💻 Tecnologías
+
+- **Java 21**
+- **PostgreSQL**
+- **Maven**
+- **JDBC**
+
+---
+
+## 🛠 Herramientas
+
+- Visual Studio Code
+- Trello / Jira
+- Git / GitHub
+
+---
+
+## 🧱 Arquitectura (MVC + Repository)
+
+- **View** (`com.femteca.view`)  
+  Interfaz por terminal: menús, entrada de datos y presentación de resultados.
+- **Controller** (`com.femteca.controller`)  
+  Orquesta el flujo entre la vista y la capa de persistencia.
+- **Model** (`com.femteca.model`)  
+  Entidades del dominio: `Book`, `Author`, `Genre`.
+- **Repository** (`com.femteca.repository`)  
+  Interfaces e implementaciones JDBC para consultas y operaciones sobre PostgreSQL.
+- **Config** (`com.femteca.config`)  
+  Configuración de conexión a base de datos (por ejemplo, `DBManager`) utilizando variables desde `.env`.
+
+---
+
+## 🗂 Estructura del proyecto
+
+```txt
+src/
+└─ main/
+   └─ java/
+      └─ com/
+         └─ femteca/
+            ├─ config/
+            │  └─ DBManager.java
+            ├─ controller/
+            │  ├─ AuthorController.java
+            │  ├─ BookController.java
+            │  └─ GenreController.java
+            ├─ model/
+            │  ├─ Author.java
+            │  ├─ Book.java
+            │  ├─ Genre.java
+            │  └─ Colors.java
+            ├─ repository/
+            │  ├─ AuthorRepository.java
+            │  ├─ AuthorRepositoryImpl.java
+            │  ├─ BookRepository.java
+            │  ├─ BookRepositoryImpl.java
+            │  ├─ GenreRepository.java
+            │  └─ GenreRepositoryImpl.java
+            ├─ view/
+            │  └─ BookView.java
+            └─ App.java
+⚙️ Configuración
+Variables de entorno (.env)
+Este proyecto utiliza dotenv-java para cargar las credenciales de la base de datos desde un archivo .env.
+
+Crea un archivo llamado .env en la raíz del proyecto.
+
+Añade tus datos de conexión:
+
+DB_URL=jdbc:postgresql://localhost:5432/femteca
+DB_USER=postgres
+DB_PASSWORD=tu_password
+🗄 Base de datos (PostgreSQL)
+Crea una base de datos llamada femteca.
+
+Crea las tablas necesarias para books, authors y genres según el modelo del proyecto.
+
+(Opcional) Inserta datos iniciales para probar el CRUD desde el primer momento.
+
+▶️ Ejecución
+Opción A — VS Code
+Abre src/main/java/com/femteca/App.java.
+
+Ejecuta el método main() con Run.
+
+Opción B — Maven
+Compila el proyecto con Maven:
+
+mvn clean compile
+Si deseas ejecutar el main directamente con Maven, puedes configurar un plugin de ejecución en el pom.xml (por ejemplo, exec-maven-plugin).
+
+👥 Equipo
+Product Owner: Maria-Eva Martin
+
+Scrum Master: Manon Godfroy
+
+Developers: Maria-Eva Martin, Manon Godfroy, Cristina Viejó, Maria José Ozta
