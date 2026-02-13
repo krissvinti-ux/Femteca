@@ -58,10 +58,10 @@ public class BookRepositoryImpl implements BookRepository {
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
                     int genre_id = rs.getInt("genre_id");
-                    Genre genre = genreRepository.readGenreById(genre_id);
+                    genreRepository.readGenreById(genre_id);
 
-                    int authorId = rs.getInt("author_id");
-                    Author author = authorRepository.readAuthor(authorId);
+                    int authorId = rs.getInt("author_id"); 
+                    authorRepository.readAuthor(authorId);
 
                     Book book = new Book();
                         book.setId(rs.getInt("id"));
@@ -236,9 +236,12 @@ public class BookRepositoryImpl implements BookRepository {
                         b.description,
                         b.code,
                         a.id AS author_id,
-                        a.name AS author_name
+                        a.name AS author_name,
+                        g.id AS genre_id,
+                        g.name AS genre_name
                     FROM books b
                     LEFT JOIN authors a ON b.author_id = a.id
+                    LEFT JOIN genres g ON b.genre_id = g.id
                     ORDER BY b.id
                 """;
 
@@ -257,17 +260,17 @@ public class BookRepositoryImpl implements BookRepository {
                     author.setId(rs.getInt("author_id"));
                     author.setName(rs.getString("author_name"));
                 }
-                // if (rs.getObject("genre_id") != null) {
-                //     genre = new Genre();
-                //     genre.setId(rs.getInt("genre_id"));
-                //     genre.setname(rs.getString("genre_name"));
-                // }
+                if (rs.getObject("genre_id") != null) {
+                    genre = new Genre();
+                    genre.setId(rs.getInt("genre_id"));
+                    genre.setname(rs.getString("genre_name"));
+                }
 
                 Book book = new Book(
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getString("code"),
-                        author);
+                        author, genre);
                 book.setId(rs.getInt("book_id"));
 
                 books.add(book);
